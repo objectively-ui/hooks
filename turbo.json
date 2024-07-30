@@ -20,6 +20,11 @@
         "^lint"
       ]
     },
+    "lint:apply": {
+      "dependsOn": [
+        "^lint:apply"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true

@@ -29,6 +29,9 @@ module.exports = {
   overrides: [
     {
       files: ["*.js?(x)", "*.ts?(x)"],
+      rules: {
+
+      }
     },
   ],
 };
