@@ -2,13 +2,20 @@
   "name": "@objectively/hooks",
   "version": "0.0.0",
   "private": true,
+  "files": [
+    "dist"
+  ],
   "exports": {
-    ".": "./src/index.ts",
-    "./use-page-visibility": "./src/usePageVisibility.ts",
-    "./use-visibility-deferred-effect": "./src/useVisibilityDeferredEffect.ts",
-    "./use-ssr": "./src/useSSR.ts"
+    ".": {
+      "types": "./dist/es/index.d.mts",
+      "import": "./dist/es/index.mjs"
+    },
+    "./useSSR": "./dist/es/useSSR.mjs",
+    "./usePageVisibility": "./dist/es/usePageVisibility.mjs",
+    "./useVisibilityDeferredEffect": "./dist/es/useVisibilityDeferredEffect.mjs"
   },
   "scripts": {
+    "build": "bunchee -m",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest"
   },
@@ -23,6 +30,7 @@
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.3.1",
+    "bunchee": "^5.2.2",
     "eslint": "^8.57.0",
     "eslint-config": "workspace:*",
     "jsdom": "^24.1.1",
