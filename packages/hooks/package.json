@@ -1,6 +1,6 @@
 {
   "name": "@objectively/hooks",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "files": [
     "dist"
@@ -15,7 +15,7 @@
     "./useVisibilityDeferredEffect": "./dist/es/useVisibilityDeferredEffect.mjs"
   },
   "scripts": {
-    "build": "bunchee -m",
+    "build": "bunchee",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest"
   },

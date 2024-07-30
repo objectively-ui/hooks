@@ -6,9 +6,13 @@ interface UsePageVisibilityOptions {
   onVisibilityChange?: (visible: boolean) => void
 }
 
+interface UsePageVisibilityReturn {
+  visible: boolean
+}
+
 const getIsVisible = () => !document.hidden
 
-export const usePageVisibility = (opts?: UsePageVisibilityOptions) => {
+export const usePageVisibility = (opts?: UsePageVisibilityOptions): UsePageVisibilityReturn => {
   const ssr = useSSR()
   const initialValue = ssr ? false : getIsVisible()
   const visibilityStateRef = useRef(initialValue)

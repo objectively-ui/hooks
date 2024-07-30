@@ -4,7 +4,7 @@ import { usePageVisibility } from "./usePageVisibility";
 export const useVisibilityDeferredEffect = (
 	effect: EffectCallback,
 	deps: DependencyList = [],
-) => {
+): void => {
 	const { visible } = usePageVisibility();
   const [wasVisible, setWasVisible] = useState(visible)
 
