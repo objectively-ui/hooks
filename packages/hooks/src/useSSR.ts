@@ -1,5 +1,5 @@
-import { isSSR } from './utils/ssr'
+import { isSSR } from "./utils/ssr";
 
 export const useSSR = (): boolean => {
-  return isSSR
-}
+	return isSSR;
+};

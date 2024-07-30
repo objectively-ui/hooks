@@ -46,18 +46,18 @@ describe("#useVisibilityDeferredEffect", () => {
 
 		expect(effect).toBeCalledTimes(0);
 
-    rerender({ deps: [2] })
+		rerender({ deps: [2] });
 
 		expect(effect).toBeCalledTimes(0);
 
 		visible = true;
-    rerender({ deps: [2] })
+		rerender({ deps: [2] });
 
-    expect(effect).toBeCalledTimes(1)
+		expect(effect).toBeCalledTimes(1);
 	});
 
-  it('behaves like useEffect once the page becomes visible for the first time', () => {
-    const effect = vitest.fn();
+	it("behaves like useEffect once the page becomes visible for the first time", () => {
+		const effect = vitest.fn();
 		visible = false;
 
 		const { rerender } = renderHook(
@@ -70,15 +70,15 @@ describe("#useVisibilityDeferredEffect", () => {
 		);
 
 		visible = true;
-    rerender({ deps: [1] })
+		rerender({ deps: [1] });
 
-    expect(effect).toBeCalledTimes(1)
+		expect(effect).toBeCalledTimes(1);
 
 		visible = false;
-    rerender({ deps: [1] })
-    expect(effect).toBeCalledTimes(1)
+		rerender({ deps: [1] });
+		expect(effect).toBeCalledTimes(1);
 
-    rerender({ deps: [2] })
-    expect(effect).toBeCalledTimes(2)
-  })
+		rerender({ deps: [2] });
+		expect(effect).toBeCalledTimes(2);
+	});
 });

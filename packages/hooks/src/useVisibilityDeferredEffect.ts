@@ -1,4 +1,10 @@
-import { type DependencyList, type EffectCallback, useEffect, useRef, useState } from "react";
+import {
+	type DependencyList,
+	type EffectCallback,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { usePageVisibility } from "./usePageVisibility";
 
 export const useVisibilityDeferredEffect = (
@@ -6,19 +12,19 @@ export const useVisibilityDeferredEffect = (
 	deps: DependencyList = [],
 ): void => {
 	const { visible } = usePageVisibility();
-  const [wasVisible, setWasVisible] = useState(visible)
+	const [wasVisible, setWasVisible] = useState(visible);
 
-  useEffect(() => {
-    if (visible) {
-      setWasVisible(true)
-    }
-  }, [visible])
+	useEffect(() => {
+		if (visible) {
+			setWasVisible(true);
+		}
+	}, [visible]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-    if (!wasVisible) {
-      return
-    }
+		if (!wasVisible) {
+			return;
+		}
 
 		return effect();
 	}, [wasVisible, ...deps]);

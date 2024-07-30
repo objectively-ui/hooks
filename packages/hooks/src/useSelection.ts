@@ -14,9 +14,9 @@ export const useSelection = (
 	const [selection, setSelection] = useState<Selection | null>(null);
 
 	useEffect(() => {
-    if (element instanceof HTMLInputElement) {
-      return
-    }
+		if (element instanceof HTMLInputElement) {
+			return;
+		}
 
 		const handleChange = () => {
 			const selection = document.getSelection();

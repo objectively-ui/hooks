@@ -12,17 +12,17 @@ interface UseGeolocationReturn {
 	coordinates?: GeolocationCoordinates;
 	lastUpdatedAt: number;
 	error?: GeolocationPositionError;
-  errorCode?: (typeof geolocationErrorCodes)[keyof typeof geolocationErrorCodes];
+	errorCode?: (typeof geolocationErrorCodes)[keyof typeof geolocationErrorCodes];
 	refresh: () => Promise<GeolocationCoordinates>;
 }
 
-const errorForErrorCodes = new GeolocationPositionError()
+const errorForErrorCodes = new GeolocationPositionError();
 
 const geolocationErrorCodes = {
-  [errorForErrorCodes.PERMISSION_DENIED]: 'PERMISSION_DENIED',
-  [errorForErrorCodes.POSITION_UNAVAILABLE]: 'POSITION_UNAVAILABLE',
-  [errorForErrorCodes.TIMEOUT]: 'TIMEOUT'
-} as const
+	[errorForErrorCodes.PERMISSION_DENIED]: "PERMISSION_DENIED",
+	[errorForErrorCodes.POSITION_UNAVAILABLE]: "POSITION_UNAVAILABLE",
+	[errorForErrorCodes.TIMEOUT]: "TIMEOUT",
+} as const;
 
 export const useGeolocation = (
 	opts: UseGeolocationOptions = {},
@@ -33,26 +33,26 @@ export const useGeolocation = (
 
 	useEffect(() => {
 		if (watch) {
-      let id: number;
+			let id: number;
 
-      try {
-        id = navigator.geolocation.watchPosition(
-          (pos) => {
-            setPosition(pos);
-            setError(undefined);
-          },
-          (error) => {
-            setError(error);
-          },
-          {
-            enableHighAccuracy: highAccuracy,
-            maximumAge: maxCacheAge,
-            timeout,
-          },
-        );
-      } catch (e) {
-        setError(e as GeolocationPositionError)
-      }
+			try {
+				id = navigator.geolocation.watchPosition(
+					(pos) => {
+						setPosition(pos);
+						setError(undefined);
+					},
+					(error) => {
+						setError(error);
+					},
+					{
+						enableHighAccuracy: highAccuracy,
+						maximumAge: maxCacheAge,
+						timeout,
+					},
+				);
+			} catch (e) {
+				setError(e as GeolocationPositionError);
+			}
 
 			return () => {
 				navigator.geolocation.clearWatch(id);
@@ -62,27 +62,27 @@ export const useGeolocation = (
 
 	const refresh = useCallback(() => {
 		return new Promise<GeolocationCoordinates>((resolve, reject) => {
-      try {
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            setPosition(pos);
-            setError(undefined);
-            resolve(pos.coords);
-          },
-          (error) => {
-            setError(error);
-            reject(error);
-          },
-          {
-            enableHighAccuracy: highAccuracy,
-            maximumAge: maxCacheAge,
-            timeout,
-          },
-        );
-      } catch (e) {
-        setError(e as GeolocationPositionError)
-        reject(e)
-      }
+			try {
+				navigator.geolocation.getCurrentPosition(
+					(pos) => {
+						setPosition(pos);
+						setError(undefined);
+						resolve(pos.coords);
+					},
+					(error) => {
+						setError(error);
+						reject(error);
+					},
+					{
+						enableHighAccuracy: highAccuracy,
+						maximumAge: maxCacheAge,
+						timeout,
+					},
+				);
+			} catch (e) {
+				setError(e as GeolocationPositionError);
+				reject(e);
+			}
 		});
 	}, [maxCacheAge, timeout, highAccuracy]);
 
@@ -90,7 +90,9 @@ export const useGeolocation = (
 		coordinates: position?.coords,
 		lastUpdatedAt: position?.timestamp ?? 0,
 		error,
-    errorCode: error ? geolocationErrorCodes[error.code as keyof typeof geolocationErrorCodes] : undefined,
+		errorCode: error
+			? geolocationErrorCodes[error.code as keyof typeof geolocationErrorCodes]
+			: undefined,
 		refresh,
 	};
 };
