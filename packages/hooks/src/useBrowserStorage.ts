@@ -140,7 +140,7 @@ export const useBrowserStorage = <TData extends StorableRecord>(
 			}
 		};
 
-		window.addEventListener("storage", handleChange);
+		window.addEventListener("storage", handleChange, { passive: true });
 
 		return () => {
 			window.removeEventListener("storage", handleChange);
