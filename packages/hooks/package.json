@@ -2,14 +2,25 @@
   "name": "@objectively/hooks",
   "version": "0.1.0",
   "private": true,
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/es/index.d.mts",
       "import": "./dist/es/index.mjs"
     },
-    "./useSSR": "./dist/es/useSSR.mjs",
+    "./useBrowserStorage": "./dist/es/useBrowserStorage.mjs",
+    "./useBrowserStorageState": "./dist/es/useBrowserStorageState.mjs",
+    "./useColorScheme": "./dist/es/useColorScheme.mjs",
+    "./useDeviceMotion": "./dist/es/useDeviceMotion.mjs",
+    "./useDeviceOrientation": "./dist/es/useDeviceOrientation.mjs",
+    "./useGeolocation": "./dist/es/useGeolocation.mjs",
     "./usePageVisibility": "./dist/es/usePageVisibility.mjs",
+    "./usePermission": "./dist/es/usePermission.mjs",
+    "./usePrefersReducedMotion": "./dist/es/usePrefersReducedMotion.mjs",
+    "./useSelection": "./dist/es/useSelection.mjs",
+    "./useSSR": "./dist/es/useSSR.mjs",
     "./useVisibilityDeferredEffect": "./dist/es/useVisibilityDeferredEffect.mjs"
   },
   "scripts": {

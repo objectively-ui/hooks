@@ -12,12 +12,24 @@
     "enabled": true
   },
   "linter": {
+    "enabled": true,
     "rules": {
       "recommended": true,
       "correctness": {
         "noConstantMathMinMaxClamp": "warn",
         "useHookAtTopLevel": "warn",
-        "noUnusedImports": "warn"
+        "noUnusedImports": "warn",
+        "useExhaustiveDependencies": {
+          "level": "error",
+          "options": {
+            "hooks": [
+              {
+                "name": "useCallbackRef",
+                "stableResult": true
+              }
+            ]
+          }
+        }
       },
       "suspicious": {
         "noEmptyBlockStatements": "warn"

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useEventListener } from "./useEventListener";
 import { window } from "./utils/globals";
 
 interface DeviceOrientation {
@@ -16,24 +17,21 @@ export const useDeviceOrientation = (): DeviceOrientation => {
     z: 0,
   });
 
-  useEffect(() => {
-    const handleChange = (e: DeviceOrientationEvent) => {
+  useEventListener(
+    "deviceorientation",
+    (e) => {
       setOrientation({
         x: e.beta,
         y: e.gamma,
         z: e.alpha,
         absolute: e.absolute,
       });
-    };
-
-    window.addEventListener("deviceorientation", handleChange, {
+    },
+    {
+      element: window,
       passive: true,
-    });
-
-    return () => {
-      window.removeEventListener("deviceorientation", handleChange);
-    };
-  }, []);
+    },
+  );
 
   return orientation;
 };

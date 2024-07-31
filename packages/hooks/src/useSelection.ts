@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useEventListener } from "./useEventListener";
 import { document } from "./utils/globals";
 
 interface UseSelectionOptions {
@@ -11,12 +12,13 @@ export const useSelection = (opts: UseSelectionOptions = {}): Selection | null =
 
   const [selection, setSelection] = useState<Selection | null>(null);
 
-  useEffect(() => {
-    if (element instanceof HTMLInputElement) {
-      return;
-    }
+  useEventListener(
+    "selectionchange",
+    () => {
+      if (element instanceof HTMLInputElement) {
+        return;
+      }
 
-    const handleChange = () => {
       const selection = document.getSelection();
 
       if (!element || (element && selection?.containsNode(element, allowPartialContainment))) {
@@ -24,17 +26,13 @@ export const useSelection = (opts: UseSelectionOptions = {}): Selection | null =
       } else {
         setSelection(null);
       }
-    };
-
-    handleChange();
-    document.addEventListener("selectionchange", handleChange, {
+    },
+    {
+      element: document,
       passive: true,
-    });
-
-    return () => {
-      document.removeEventListener("selectionchange", handleChange);
-    };
-  }, [element, allowPartialContainment]);
+      immediate: true,
+    },
+  );
 
   return selection;
 };

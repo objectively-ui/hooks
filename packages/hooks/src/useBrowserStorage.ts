@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import type { PlainValue, UnknownRecord } from "./types";
+import { useEventListener } from "./useEventListener";
 import { window } from "./utils/globals";
 import { isSSR } from "./utils/ssr";
 
@@ -104,8 +105,9 @@ export const useBrowserStorage = <TData extends StorableRecord>(
     [storage, setValue],
   );
 
-  useEffect(() => {
-    const handleChange = (e: StorageEvent) => {
+  useEventListener(
+    "storage",
+    (e) => {
       if (e.storageArea !== storage) {
         return;
       }
@@ -123,14 +125,12 @@ export const useBrowserStorage = <TData extends StorableRecord>(
           setValue(e.key, deserializeValue(e.key, e.newValue));
         }
       }
-    };
-
-    window.addEventListener("storage", handleChange, { passive: true });
-
-    return () => {
-      window.removeEventListener("storage", handleChange);
-    };
-  }, [storage, keys, clear, setValue, deserializeValue]);
+    },
+    {
+      element: window,
+      passive: true,
+    },
+  );
 
   return {
     data,

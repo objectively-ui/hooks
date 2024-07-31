@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useCallbackRef } from "./useCallbackRef";
+import { useEventListener } from "./useEventListener";
 import { window } from "./utils/globals";
 
 type DeviceMotion = Pick<
@@ -18,26 +20,25 @@ const zeroMotion = {
 } satisfies DeviceMotion;
 
 export const useDeviceMotion = (opts: UseDeviceMotionOpts): DeviceMotion => {
-  const { onMove } = opts;
+  const onMoveRef = useCallbackRef(opts.onMove);
   const [motion, setMotion] = useState<DeviceMotion>(zeroMotion);
 
-  useEffect(() => {
-    const handleChange = (e: DeviceMotionEvent) => {
+  useEventListener(
+    "devicemotion",
+    (e) => {
       setMotion({
         acceleration: e.acceleration,
         accelerationIncludingGravity: e.accelerationIncludingGravity,
         rotationRate: e.rotationRate,
         interval: e.interval,
       });
-      onMove(e);
-    };
-
-    window.addEventListener("devicemotion", handleChange, { passive: true });
-
-    return () => {
-      window.removeEventListener("devicemotion", handleChange);
-    };
-  }, [onMove]);
+      onMoveRef.current(e);
+    },
+    {
+      element: window,
+      passive: true,
+    },
+  );
 
   return motion;
 };
