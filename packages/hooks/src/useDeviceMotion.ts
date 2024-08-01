@@ -35,7 +35,7 @@ export const useDeviceMotion = (opts: UseDeviceMotionOpts): DeviceMotion => {
       onMoveRef.current(e);
     },
     {
-      element: window,
+      eventTarget: window,
       passive: true,
     },
   );

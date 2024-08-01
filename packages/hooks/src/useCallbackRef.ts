@@ -1,12 +1,14 @@
-import { useRef } from "react";
+import { type MutableRefObject, useRef } from "react";
 import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const useCallbackRef = (callback: (...args: any[]) => void) => {
-  const ref = useRef(callback);
+export const useCallbackRef = <TFunc extends (...args: any[]) => void>(
+  callback: TFunc | undefined,
+): MutableRefObject<TFunc> => {
+  const ref = useRef<TFunc>(callback || ((() => undefined) as TFunc));
 
   useIsomorphicLayoutEffect(() => {
-    ref.current = callback;
+    ref.current = callback || ((() => undefined) as TFunc);
   }, [callback]);
 
   return ref;

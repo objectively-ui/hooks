@@ -19,7 +19,7 @@ export const useViewport = () => {
       });
     },
     {
-      element: window,
+      eventTarget: window,
       passive: true,
     },
   );

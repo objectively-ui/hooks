@@ -1,60 +1,64 @@
 import { useEffect } from "react";
 import { useCallbackRef } from "./useCallbackRef";
-import { window } from "./utils/globals";
 
-type ListenableElement = Window | Document | Element;
+type ListenableTarget = Window | Document | Element | PermissionStatus | MediaQueryList;
 
-interface UseEventOptions<TElement extends ListenableElement, TImmediate extends boolean>
+interface UseEventOptions<TEventTarget extends ListenableTarget, TImmediate extends boolean>
   extends AddEventListenerOptions {
-  element?: TElement;
+  eventTarget?: TEventTarget;
   immediate?: TImmediate;
 }
 
-type EventMap<TElement> = TElement extends undefined
+type EventMap<TEventTarget> = TEventTarget extends Window
   ? WindowEventMap
-  : TElement extends Window
-    ? WindowEventMap
-    : TElement extends Document
-      ? DocumentEventMap
-      : HTMLElementEventMap;
+  : TEventTarget extends Document
+    ? DocumentEventMap
+    : TEventTarget extends PermissionStatus
+      ? PermissionStatusEventMap
+      : TEventTarget extends MediaQueryList
+        ? MediaQueryListEventMap
+        : HTMLElementEventMap;
 
 type EventHandlerEvent<TEventType, TImmediate> = TImmediate extends true
   ? undefined | TEventType
   : TEventType;
 
 export const useEventListener = <
-  TElement extends ListenableElement,
-  const TEventType extends string & keyof EventMap<TElement>,
+  TEventTarget extends ListenableTarget,
+  const TEventType extends string & keyof EventMap<TEventTarget>,
   const TImmediate extends boolean = false,
 >(
   type: TEventType,
   listener: (
-    this: TElement,
-    event: EventHandlerEvent<EventMap<TElement>[TEventType], TImmediate>,
+    this: TEventTarget,
+    event: EventHandlerEvent<EventMap<TEventTarget>[TEventType], TImmediate>,
   ) => void,
-  opts: UseEventOptions<TElement, TImmediate> = {},
+  opts: UseEventOptions<TEventTarget, TImmediate>,
 ) => {
   const handlerRef = useCallbackRef(listener);
 
-  const element = opts.element || window;
+  const element = opts.eventTarget;
   const { capture, once, passive, signal, immediate } = opts;
 
   useEffect(() => {
     const handleChange = handlerRef.current;
 
-    element.addEventListener(type, handleChange, {
+    // @ts-ignore
+    element?.addEventListener(type, handleChange, {
       capture,
       once,
       passive,
       signal,
     });
 
-    if (immediate) {
-      handleChange();
+    if (immediate && element) {
+      // @ts-ignore
+      handleChange.call(element, undefined);
     }
 
     return () => {
-      element.removeEventListener(type, handleChange);
+      // @ts-ignore
+      element?.removeEventListener(type, handleChange);
     };
   }, [type, element, immediate, capture, once, passive, signal]);
 };

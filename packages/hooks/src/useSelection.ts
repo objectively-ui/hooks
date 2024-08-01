@@ -28,7 +28,7 @@ export const useSelection = (opts: UseSelectionOptions = {}): Selection | null =
       }
     },
     {
-      element: document,
+      eventTarget: document,
       passive: true,
       immediate: true,
     },

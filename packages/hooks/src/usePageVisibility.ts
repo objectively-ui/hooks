@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { useCallbackRef } from "./useCallbackRef";
+import { useEventListener } from "./useEventListener";
 import { useSSR } from "./useSSR";
 import { document } from "./utils/globals";
 
@@ -17,26 +19,25 @@ export const usePageVisibility = (opts?: UsePageVisibilityOptions): UsePageVisib
   const initialValue = ssr ? false : getIsVisible();
   const visibilityStateRef = useRef(initialValue);
   const [isVisible, setIsVisible] = useState(initialValue);
-  const onVisibilityChange = opts?.onVisibilityChange;
+  const onVisibilityChange = useCallbackRef(opts?.onVisibilityChange);
 
-  useEffect(() => {
-    const handleVisibilityChange = () => {
+  useEventListener(
+    "visibilitychange",
+    () => {
       const v = getIsVisible();
 
       if (visibilityStateRef.current !== v) {
         visibilityStateRef.current = v;
         setIsVisible(v);
-        onVisibilityChange?.(v);
+        onVisibilityChange.current?.(v);
       }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange, {
+    },
+    {
+      eventTarget: document,
       passive: true,
-    });
-    handleVisibilityChange();
-
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, [onVisibilityChange]);
+      immediate: true,
+    },
+  );
 
   return {
     visible: isVisible,

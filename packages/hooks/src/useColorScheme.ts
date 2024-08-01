@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import { useCallbackRef } from "./useCallbackRef";
+import { useEventListener } from "./useEventListener";
 import { isSSR } from "./utils/ssr";
 
 export type ColorScheme = "light" | "dark";
@@ -42,31 +44,32 @@ export const useColorScheme = (
   opts: UseColorSchemeOptions = {},
 ): [ColorScheme, (colorScheme: ColorScheme) => void] => {
   const { force } = opts;
-  const restoreColorScheme = opts.persist?.getColorScheme || localStoragePersist.getColorScheme;
-  const persistColorScheme = opts.persist?.setColorScheme || localStoragePersist.setColorScheme;
+  const restoreColorScheme = useCallbackRef(
+    opts.persist?.getColorScheme || localStoragePersist.getColorScheme,
+  );
+  const persistColorScheme = useCallbackRef(
+    opts.persist?.setColorScheme || localStoragePersist.setColorScheme,
+  );
 
   const [userScheme, setUserScheme] = useState<ColorScheme | undefined>(
-    force || restoreColorScheme(),
+    force || restoreColorScheme.current(),
   );
   const [systemScheme, setSystemScheme] = useState<ColorScheme>(getPreferredScheme());
 
-  useEffect(() => {
-    const handleChange = () => {
+  useEventListener(
+    "change",
+    () => {
       if (force) {
         return;
       }
 
       setSystemScheme(getPreferredScheme());
-    };
-
-    prefersDarkMatcher?.addEventListener("change", handleChange, {
+    },
+    {
+      eventTarget: prefersDarkMatcher,
       passive: true,
-    });
-
-    return () => {
-      prefersDarkMatcher?.removeEventListener("change", handleChange);
-    };
-  }, [force]);
+    },
+  );
 
   const setScheme = useCallback(
     (colorScheme: ColorScheme) => {
@@ -74,10 +77,10 @@ export const useColorScheme = (
         setUserScheme(undefined);
       } else {
         setUserScheme(colorScheme);
-        persistColorScheme(colorScheme);
+        persistColorScheme.current(colorScheme);
       }
     },
-    [systemScheme, persistColorScheme],
+    [systemScheme],
   );
 
   return [force || userScheme || systemScheme, setScheme];

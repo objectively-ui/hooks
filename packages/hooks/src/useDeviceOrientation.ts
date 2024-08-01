@@ -28,7 +28,7 @@ export const useDeviceOrientation = (): DeviceOrientation => {
       });
     },
     {
-      element: window,
+      eventTarget: window,
       passive: true,
     },
   );

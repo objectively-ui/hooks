@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useEventListener } from "./useEventListener";
 import { window } from "./utils/globals";
 import { isSSR } from "./utils/ssr";
 
@@ -7,15 +8,16 @@ const matcher = isSSR ? undefined : window.matchMedia("(prefers-reduced-motion: 
 export const usePrefersReducedMotion = () => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(matcher?.matches ?? false);
 
-  useEffect(() => {
-    const handleChange = (ev: MediaQueryListEvent) => {
+  useEventListener(
+    "change",
+    (ev) => {
       setPrefersReducedMotion(ev.matches);
-    };
-
-    matcher?.addEventListener("change", handleChange);
-
-    return matcher?.removeEventListener("change", handleChange);
-  }, []);
+    },
+    {
+      eventTarget: matcher,
+      passive: true,
+    },
+  );
 
   return prefersReducedMotion;
 };

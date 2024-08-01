@@ -127,7 +127,7 @@ export const useBrowserStorage = <TData extends StorableRecord>(
       }
     },
     {
-      element: window,
+      eventTarget: window,
       passive: true,
     },
   );
