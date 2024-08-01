@@ -1,8 +1,8 @@
 import { type MutableRefObject, useRef } from "react";
+import type { UnknownFunction } from "./types";
 import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const useCallbackRef = <TFunc extends (...args: any[]) => void>(
+export const useCallbackRef = <TFunc extends UnknownFunction>(
   callback: TFunc | undefined,
 ): MutableRefObject<TFunc> => {
   const ref = useRef<TFunc>(callback || ((() => undefined) as TFunc));
