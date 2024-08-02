@@ -1,0 +1,38 @@
+{
+  "name": "@objectively/utils",
+  "version": "0.1.0",
+  "private": true,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/es/index.d.mts",
+      "import": "./dist/es/index.mjs"
+    },
+    "./debounce": "./dist/es/debounce.mjs",
+    "./deepFreeze": "./dist/es/deepFreeze.mjs",
+    "./globals": "./dist/es/globals.mjs",
+    "./mapObject": "./dist/es/mapObject.mjs",
+    "./promise": "./dist/es/promise.mjs",
+    "./ssr": "./dist/es/ssr.mjs",
+    "./throttle": "./dist/es/throttle.mjs"
+  },
+  "scripts": {
+    "build": "bunchee && update-package-exports",
+    "lint": "biome lint",
+    "lint:apply": "biome format --write && biome lint --write",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@turbo/gen": "^1.12.4",
+    "@types/node": "^20.11.24",
+    "bunchee": "^5.2.2",
+    "jsdom": "^24.1.1",
+    "typescript": "^5.3.3",
+    "@objectively/typescript-config": "workspace:*",
+    "@objectively/bunchee-scripts": "workspace:*",
+    "vitest": "^2.0.4"
+  }
+}

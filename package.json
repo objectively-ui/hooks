@@ -6,10 +6,20 @@
     "dev": "turbo dev",
     "test": "turbo test",
     "lint": "turbo lint",
-    "lint:apply": "turbo lint:apply"
+    "lint:apply": "turbo lint:apply",
+    "storybook": "storybook dev -p 3000",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^8.2.7",
+    "@storybook/addon-interactions": "^8.2.7",
+    "@storybook/addon-links": "^8.2.7",
+    "@storybook/blocks": "^8.2.7",
+    "@storybook/react": "^8.2.7",
+    "@storybook/react-vite": "^8.2.7",
+    "@storybook/test": "^8.2.7",
     "prettier": "^3.2.5",
+    "storybook": "^8.2.7",
     "turbo": "^2.0.9",
     "typescript": "^5.4.5"
   },

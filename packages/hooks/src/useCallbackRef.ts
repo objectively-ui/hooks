@@ -1,5 +1,5 @@
+import type { UnknownFunction } from "@objectively/utils";
 import { type MutableRefObject, useRef } from "react";
-import type { UnknownFunction } from "./types";
 import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 
 export const useCallbackRef = <TFunc extends UnknownFunction>(

@@ -1,4 +1,4 @@
-import type { UnknownFunction } from "../types";
+import type { UnknownFunction } from "./types";
 
 export const throttle = <TFunc extends UnknownFunction>(func: TFunc, delay: number) => {
   let lastTime = 0;

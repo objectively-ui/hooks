@@ -1,7 +1,7 @@
+import { isSSR } from "@objectively/utils/ssr";
 import { useCallback, useState } from "react";
 import { useCallbackRef } from "./useCallbackRef";
 import { useEventListener } from "./useEventListener";
-import { isSSR } from "./utils/ssr";
 
 export type ColorScheme = "light" | "dark";
 

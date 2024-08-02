@@ -12,6 +12,7 @@
     },
     "./useBrowserStorage": "./dist/es/useBrowserStorage.mjs",
     "./useBrowserStorageState": "./dist/es/useBrowserStorageState.mjs",
+    "./useCallbackRef": "./dist/es/useCallbackRef.mjs",
     "./useColorScheme": "./dist/es/useColorScheme.mjs",
     "./useDeviceMotion": "./dist/es/useDeviceMotion.mjs",
     "./useDeviceOrientation": "./dist/es/useDeviceOrientation.mjs",
@@ -32,6 +33,9 @@
   "peerDependencies": {
     "react": ">=18"
   },
+  "dependencies": {
+    "@objectively/utils": "workspace:*"
+  },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@testing-library/react": "^16.0.0",
@@ -44,7 +48,8 @@
     "jsdom": "^24.1.1",
     "react": "^18.3.1",
     "typescript": "^5.3.3",
-    "typescript-config": "workspace:*",
+    "@objectively/typescript-config": "workspace:*",
+    "@objectively/bunchee-scripts": "workspace:*",
     "vitest": "^2.0.4"
   }
 }

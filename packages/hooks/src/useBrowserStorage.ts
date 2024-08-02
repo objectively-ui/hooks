@@ -1,8 +1,7 @@
+import type { PlainValue, UnknownRecord } from "@objectively/utils";
+import { isSSR } from "@objectively/utils/ssr";
 import { useCallback, useState } from "react";
-import type { PlainValue, UnknownRecord } from "./types";
 import { useEventListener } from "./useEventListener";
-import { window } from "./utils/globals";
-import { isSSR } from "./utils/ssr";
 
 export type StorableValue = PlainValue | Record<string, PlainValue> | PlainValue[];
 type StorableRecord = Record<string, StorableValue>;

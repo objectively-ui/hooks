@@ -1,0 +1,21 @@
+{
+  "name": "@objectively/bunchee-scripts",
+  "version": "0.1.0",
+  "private": true,
+  "bin": {
+    "update-package-exports": "./dist/bin"
+  },
+  "scripts": {
+    "build": "bunchee",
+    "lint": "biome lint",
+    "lint:apply": "biome format --write && biome lint --write"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@turbo/gen": "^1.12.4",
+    "@types/node": "^20.11.24",
+    "bunchee": "^5.2.2",
+    "typescript": "^5.3.3",
+    "@objectively/typescript-config": "workspace:*"
+  }
+}

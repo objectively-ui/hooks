@@ -1,5 +1,5 @@
-import type { UnknownFunction } from "../types";
 import { window } from "./globals";
+import type { UnknownFunction } from "./types";
 
 export const debounce = <TFunc extends UnknownFunction>(func: TFunc, delay: number) => {
   let timeout: number;

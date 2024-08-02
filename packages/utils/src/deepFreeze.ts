@@ -1,5 +1,5 @@
-import type { UnknownRecord } from "../types";
 import { mapObject } from "./mapObject";
+import type { UnknownRecord } from "./types";
 
 export const deepFreeze = <TValue>(value: TValue): TValue => {
   if (Array.isArray(value)) {

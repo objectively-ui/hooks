@@ -1,4 +1,4 @@
-import type { UnknownRecord } from "../types";
+import type { UnknownRecord } from "./types";
 
 export const mapObject = <
   TObj extends UnknownRecord,
