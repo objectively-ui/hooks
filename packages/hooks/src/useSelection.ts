@@ -1,6 +1,6 @@
+import { document } from "@objectively/utils";
 import { useState } from "react";
 import { useEventListener } from "./useEventListener";
-import { document } from "./utils/globals";
 
 interface UseSelectionOptions {
   element?: Element;

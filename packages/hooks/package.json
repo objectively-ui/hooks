@@ -7,25 +7,100 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/es/index.d.mts",
-      "import": "./dist/es/index.mjs"
+      "import": "./dist/es/index.mjs",
+      "types": "./dist/es/index.d.ts"
     },
-    "./useBrowserStorage": "./dist/es/useBrowserStorage.mjs",
-    "./useBrowserStorageState": "./dist/es/useBrowserStorageState.mjs",
-    "./useCallbackRef": "./dist/es/useCallbackRef.mjs",
-    "./useColorScheme": "./dist/es/useColorScheme.mjs",
-    "./useDeviceMotion": "./dist/es/useDeviceMotion.mjs",
-    "./useDeviceOrientation": "./dist/es/useDeviceOrientation.mjs",
-    "./useGeolocation": "./dist/es/useGeolocation.mjs",
-    "./usePageVisibility": "./dist/es/usePageVisibility.mjs",
-    "./usePermission": "./dist/es/usePermission.mjs",
-    "./usePrefersReducedMotion": "./dist/es/usePrefersReducedMotion.mjs",
-    "./useSelection": "./dist/es/useSelection.mjs",
-    "./useSSR": "./dist/es/useSSR.mjs",
-    "./useVisibilityDeferredEffect": "./dist/es/useVisibilityDeferredEffect.mjs"
+    "./useBrowserStorage": {
+      "import": "./dist/es/useBrowserStorage.mjs",
+      "types": "./dist/es/useBrowserStorage.d.ts"
+    },
+    "./useBrowserStorageState": {
+      "import": "./dist/es/useBrowserStorageState.mjs",
+      "types": "./dist/es/useBrowserStorageState.d.ts"
+    },
+    "./useCallbackRef": {
+      "import": "./dist/es/useCallbackRef.mjs",
+      "types": "./dist/es/useCallbackRef.d.ts"
+    },
+    "./useColorScheme": {
+      "import": "./dist/es/useColorScheme.mjs",
+      "types": "./dist/es/useColorScheme.d.ts"
+    },
+    "./useDebounce": {
+      "import": "./dist/es/useDebounce.mjs",
+      "types": "./dist/es/useDebounce.d.ts"
+    },
+    "./useDebounceValue": {
+      "import": "./dist/es/useDebounceValue.mjs",
+      "types": "./dist/es/useDebounceValue.d.ts"
+    },
+    "./useDeviceMotion": {
+      "import": "./dist/es/useDeviceMotion.mjs",
+      "types": "./dist/es/useDeviceMotion.d.ts"
+    },
+    "./useDeviceOrientation": {
+      "import": "./dist/es/useDeviceOrientation.mjs",
+      "types": "./dist/es/useDeviceOrientation.d.ts"
+    },
+    "./useEventListener": {
+      "import": "./dist/es/useEventListener.mjs",
+      "types": "./dist/es/useEventListener.d.ts"
+    },
+    "./useGeolocation": {
+      "import": "./dist/es/useGeolocation.mjs",
+      "types": "./dist/es/useGeolocation.d.ts"
+    },
+    "./useInterval": {
+      "import": "./dist/es/useInterval.mjs",
+      "types": "./dist/es/useInterval.d.ts"
+    },
+    "./useIsClient": {
+      "import": "./dist/es/useIsClient.mjs",
+      "types": "./dist/es/useIsClient.d.ts"
+    },
+    "./useIsomorphicLayoutEffect": {
+      "import": "./dist/es/useIsomorphicLayoutEffect.mjs",
+      "types": "./dist/es/useIsomorphicLayoutEffect.d.ts"
+    },
+    "./usePageVisibility": {
+      "import": "./dist/es/usePageVisibility.mjs",
+      "types": "./dist/es/usePageVisibility.d.ts"
+    },
+    "./usePermission": {
+      "import": "./dist/es/usePermission.mjs",
+      "types": "./dist/es/usePermission.d.ts"
+    },
+    "./usePreferredLanguage": {
+      "import": "./dist/es/usePreferredLanguage.mjs",
+      "types": "./dist/es/usePreferredLanguage.d.ts"
+    },
+    "./usePrefersReducedMotion": {
+      "import": "./dist/es/usePrefersReducedMotion.mjs",
+      "types": "./dist/es/usePrefersReducedMotion.d.ts"
+    },
+    "./useSelection": {
+      "import": "./dist/es/useSelection.mjs",
+      "types": "./dist/es/useSelection.d.ts"
+    },
+    "./useSSR": {
+      "import": "./dist/es/useSSR.mjs",
+      "types": "./dist/es/useSSR.d.ts"
+    },
+    "./useThrottle": {
+      "import": "./dist/es/useThrottle.mjs",
+      "types": "./dist/es/useThrottle.d.ts"
+    },
+    "./useViewport": {
+      "import": "./dist/es/useViewport.mjs",
+      "types": "./dist/es/useViewport.d.ts"
+    },
+    "./useVisibilityDeferredEffect": {
+      "import": "./dist/es/useVisibilityDeferredEffect.mjs",
+      "types": "./dist/es/useVisibilityDeferredEffect.d.ts"
+    }
   },
   "scripts": {
-    "build": "bunchee",
+    "build": "update-package-exports && bunchee",
     "lint": "biome lint",
     "lint:apply": "biome format --write && biome lint --write",
     "test": "vitest"

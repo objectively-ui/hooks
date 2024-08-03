@@ -1,5 +1,5 @@
+import { navigator } from "@objectively/utils";
 import { useCallback, useEffect, useState } from "react";
-import { navigator } from "./utils/globals";
 
 interface UseGeolocationOptions {
   maxCacheAge?: number;

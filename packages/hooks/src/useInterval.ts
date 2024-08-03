@@ -1,6 +1,6 @@
+import { window } from "@objectively/utils";
 import { useEffect } from "react";
 import { useCallbackRef } from "./useCallbackRef";
-import { window } from "./utils/globals";
 
 export const useInterval = (callback: () => void, delay: number) => {
   const cb = useCallbackRef(callback);

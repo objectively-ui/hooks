@@ -1,8 +1,8 @@
+import { document } from "@objectively/utils";
 import { useRef, useState } from "react";
 import { useCallbackRef } from "./useCallbackRef";
 import { useEventListener } from "./useEventListener";
 import { useSSR } from "./useSSR";
-import { document } from "./utils/globals";
 
 interface UsePageVisibilityOptions {
   onVisibilityChange?: (visible: boolean) => void;

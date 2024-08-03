@@ -1,8 +1,7 @@
+import { deepFreeze, window } from "@objectively/utils";
 import { useState } from "react";
 import { useCallbackRef } from "./useCallbackRef";
 import { useEventListener } from "./useEventListener";
-import { deepFreeze } from "./utils/deepFreeze";
-import { window } from "./utils/globals";
 
 type DeviceMotion = Pick<
   DeviceMotionEvent,

@@ -1,6 +1,6 @@
-import { usePageVisibility } from "./usePageVisibility";
+import * as globals from "@objectively/utils/globals";
 import { act, renderHook } from "@testing-library/react";
-import * as globals from "./utils/globals";
+import { usePageVisibility } from "./usePageVisibility";
 
 let hidden = false;
 

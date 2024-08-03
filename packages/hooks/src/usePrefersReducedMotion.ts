@@ -1,7 +1,6 @@
+import { isSSR, window } from "@objectively/utils";
 import { useState } from "react";
 import { useEventListener } from "./useEventListener";
-import { window } from "./utils/globals";
-import { isSSR } from "./utils/ssr";
 
 const matcher = isSSR ? undefined : window.matchMedia("(prefers-reduced-motion: reduce)");
 

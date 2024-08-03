@@ -7,19 +7,40 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/es/index.d.mts",
-      "import": "./dist/es/index.mjs"
+      "import": "./dist/es/index.mjs",
+      "types": "./dist/es/index.d.ts"
     },
-    "./debounce": "./dist/es/debounce.mjs",
-    "./deepFreeze": "./dist/es/deepFreeze.mjs",
-    "./globals": "./dist/es/globals.mjs",
-    "./mapObject": "./dist/es/mapObject.mjs",
-    "./promise": "./dist/es/promise.mjs",
-    "./ssr": "./dist/es/ssr.mjs",
-    "./throttle": "./dist/es/throttle.mjs"
+    "./debounce": {
+      "import": "./dist/es/debounce.mjs",
+      "types": "./dist/es/debounce.d.ts"
+    },
+    "./deepFreeze": {
+      "import": "./dist/es/deepFreeze.mjs",
+      "types": "./dist/es/deepFreeze.d.ts"
+    },
+    "./globals": {
+      "import": "./dist/es/globals.mjs",
+      "types": "./dist/es/globals.d.ts"
+    },
+    "./mapObject": {
+      "import": "./dist/es/mapObject.mjs",
+      "types": "./dist/es/mapObject.d.ts"
+    },
+    "./promise": {
+      "import": "./dist/es/promise.mjs",
+      "types": "./dist/es/promise.d.ts"
+    },
+    "./ssr": {
+      "import": "./dist/es/ssr.mjs",
+      "types": "./dist/es/ssr.d.ts"
+    },
+    "./throttle": {
+      "import": "./dist/es/throttle.mjs",
+      "types": "./dist/es/throttle.d.ts"
+    }
   },
   "scripts": {
-    "build": "bunchee && update-package-exports",
+    "build": "update-package-exports && bunchee",
     "lint": "biome lint",
     "lint:apply": "biome format --write && biome lint --write",
     "test": "vitest"

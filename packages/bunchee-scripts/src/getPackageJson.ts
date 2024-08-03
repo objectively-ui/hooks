@@ -6,6 +6,9 @@ export interface PackageJson {
   name: string;
   version: string;
   exports: Record<string, { types: string; import: string }>;
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
 }
 
 export const getPackageJson = async () => {

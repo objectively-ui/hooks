@@ -1,7 +1,6 @@
+import { type UnknownFunction, throttle } from "@objectively/utils";
 import { useEffect, useRef } from "react";
-import type { UnknownFunction } from "./types";
 import { useCallbackRef } from "./useCallbackRef";
-import { throttle } from "./utils/throttle";
 
 export const useThrottle = <TFunc extends UnknownFunction>(func: TFunc, delay: number): TFunc => {
   const funcRef = useCallbackRef(func);
