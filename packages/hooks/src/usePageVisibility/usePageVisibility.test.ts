@@ -27,15 +27,10 @@ describe("#usePageVisibility", () => {
     expect(result.current.visible).toBe(expected);
   });
 
-  it("calls onVisibilityChange when the page visibility changes", () => {
+  it("changes when the page visibility changes", () => {
     hidden = true;
-    const changeSpy = vitest.fn();
+    const { result, rerender } = renderHook(() => usePageVisibility());
 
-    const { result, rerender } = renderHook((opts) => usePageVisibility(opts), {
-      initialProps: { onVisibilityChange: changeSpy },
-    });
-
-    expect(changeSpy).toBeCalledTimes(0);
     expect(result.current.visible).toBe(false);
 
     hidden = false;
@@ -44,7 +39,6 @@ describe("#usePageVisibility", () => {
     });
     rerender();
 
-    expect(changeSpy).toBeCalledTimes(1);
     expect(result.current.visible).toBe(true);
   });
 });
