@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { useIsClient } from './useIsClient';
+import type { Meta, StoryObj } from "@storybook/react";
+import { useIsClient } from "./useIsClient";
 
 const Component = () => {
-  const isClient = useIsClient()
+  const isClient = useIsClient();
 
-  return <p>Is client? {isClient.toString()}</p>
-}
+  return <p>Is client? {isClient.toString()}</p>;
+};
 
 const meta: Meta<typeof useIsClient> = {
-  title: 'hooks/useIsClient',
+  title: "hooks/useIsClient",
   component: Component,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;

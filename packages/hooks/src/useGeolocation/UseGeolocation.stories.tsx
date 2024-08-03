@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import type { UseGeolocationOptions } from './types';
+import type { UseGeolocationOptions } from "./types";
 import { useGeolocation } from "./useGeolocation";
 
 const Component = (opts: UseGeolocationOptions) => {

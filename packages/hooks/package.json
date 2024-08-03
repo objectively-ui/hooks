@@ -82,6 +82,10 @@
       "import": "./dist/es/usePrefersReducedMotion.mjs",
       "types": "./dist/es/usePrefersReducedMotion.d.ts"
     },
+    "./useRerender": {
+      "import": "./dist/es/useRerender.mjs",
+      "types": "./dist/es/useRerender.d.ts"
+    },
     "./useSelection": {
       "import": "./dist/es/useSelection.mjs",
       "types": "./dist/es/useSelection.d.ts"

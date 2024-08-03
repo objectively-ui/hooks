@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { useViewport } from './useViewport';
+import type { Meta, StoryObj } from "@storybook/react";
+import { useViewport } from "./useViewport";
 
 const Component = () => {
-  const viewport = useViewport()
+  const viewport = useViewport();
 
-  return <pre>{JSON.stringify(viewport, null, 2)}</pre>
-}
+  return <pre>{JSON.stringify(viewport, null, 2)}</pre>;
+};
 
 const meta: Meta<typeof useViewport> = {
-  title: 'hooks/useViewport',
+  title: "hooks/useViewport",
   component: Component,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;

@@ -1,21 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import { useThrottle } from './useThrottle';
+import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
+import { useThrottle } from "./useThrottle";
 
 const Component = () => {
-  const [count, setCount] = useState(0)
-  const increment = useThrottle(() => setCount(count => count + 1), 500)
+  const [count, setCount] = useState(0);
+  const increment = useThrottle(() => setCount((count) => count + 1), 500);
 
-  return <div>
-    <p>Count: {count}</p>
-    <button type='button' onClick={increment}>Increment</button>
-  </div>
-}
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button type="button" onClick={increment}>
+        Increment
+      </button>
+    </div>
+  );
+};
 
 const meta: Meta<typeof useThrottle> = {
-  title: 'hooks/useThrottle',
+  title: "hooks/useThrottle",
   component: Component,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
