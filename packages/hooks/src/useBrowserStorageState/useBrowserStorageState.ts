@@ -1,13 +1,7 @@
 import { type Dispatch, type SetStateAction, useCallback } from "react";
-import {
-  type StorableValue,
-  useBrowserStorage,
-  type UseBrowserStorageOptions,
-} from "./useBrowserStorage";
-
-interface UseBrowserStorageStateOptions<TValue> extends Omit<UseBrowserStorageOptions, "keys"> {
-  defaultValue?: TValue;
-}
+import { useBrowserStorage } from "../useBrowserStorage";
+import type { StorableValue } from "../useBrowserStorage/types";
+import type { UseBrowserStorageStateOptions } from "./types";
 
 export const useBrowserStorageState = <TValue extends StorableValue>(
   key: string,

@@ -1,19 +1,8 @@
-import { isSSR } from "@objectively/utils/ssr";
+import { isSSR } from "@objectively/utils";
 import { useCallback, useState } from "react";
-import { useCallbackRef } from "./useCallbackRef";
-import { useEventListener } from "./useEventListener";
-
-export type ColorScheme = "light" | "dark";
-
-interface PersistColorScheme {
-  getColorScheme: () => ColorScheme | undefined;
-  setColorScheme: (colorScheme: ColorScheme) => void | Promise<void>;
-}
-
-interface UseColorSchemeOptions {
-  force?: ColorScheme;
-  persist?: PersistColorScheme;
-}
+import { useCallbackRef } from "../useCallbackRef";
+import { useEventListener } from "../useEventListener";
+import type { ColorScheme, PersistColorScheme, UseColorSchemeOptions } from "./types";
 
 const prefersDarkMatcher = isSSR ? undefined : window.matchMedia("(prefers-color-scheme: dark)");
 

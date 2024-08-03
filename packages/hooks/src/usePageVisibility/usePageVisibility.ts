@@ -1,16 +1,9 @@
 import { document } from "@objectively/utils";
 import { useRef, useState } from "react";
-import { useCallbackRef } from "./useCallbackRef";
-import { useEventListener } from "./useEventListener";
-import { useSSR } from "./useSSR";
-
-interface UsePageVisibilityOptions {
-  onVisibilityChange?: (visible: boolean) => void;
-}
-
-interface UsePageVisibilityReturn {
-  visible: boolean;
-}
+import { useCallbackRef } from "../useCallbackRef";
+import { useEventListener } from "../useEventListener";
+import { useSSR } from "../useSSR";
+import type { UsePageVisibilityOptions, UsePageVisibilityReturn } from "./types";
 
 const getIsVisible = () => !document.hidden;
 

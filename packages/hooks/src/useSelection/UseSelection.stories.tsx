@@ -1,4 +1,4 @@
-import { safeStringify } from "@objectively/utils/json";
+import { safeStringify } from "@objectively/utils";
 import type { Meta, StoryObj } from "@storybook/react";
 import { useSelection } from "./useSelection";
 

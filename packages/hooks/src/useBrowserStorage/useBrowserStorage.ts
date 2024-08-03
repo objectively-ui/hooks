@@ -1,38 +1,13 @@
-import { type PlainValue, type UnknownRecord, window } from "@objectively/utils";
-import { isSSR } from "@objectively/utils/ssr";
+import { isSSR, window } from "@objectively/utils";
 import { useCallback, useState } from "react";
-import { useEventListener } from "./useEventListener";
-
-export type StorableValue = PlainValue | Record<string, PlainValue> | PlainValue[];
-type StorableRecord = Record<string, StorableValue>;
-
-type Serializer<TData extends UnknownRecord = UnknownRecord> = <
-  TKey extends string & keyof TData,
-  TValue extends TData[TKey],
->(
-  key: TKey,
-  value: TValue,
-) => string;
-type Deserializer<TData extends UnknownRecord = UnknownRecord> = <
-  TKey extends string & keyof TData,
-  TValue extends TData[TKey],
->(
-  key: TKey,
-  value: string,
-) => TValue;
-
-export interface UseBrowserStorageOptions<TData extends StorableRecord = StorableRecord> {
-  storage?: "local" | "session" | Storage;
-  keys?: (string & keyof TData)[];
-  serializeValue?: Serializer<TData>;
-  deserializeValue?: Deserializer<TData>;
-}
-
-interface UseBrowserStorageReturn<TData extends StorableRecord> {
-  data: Partial<TData>;
-  setValue: <TKey extends string & keyof TData>(key: TKey, value: TData[TKey] | undefined) => void;
-  clear: (key?: string & keyof TData) => void;
-}
+import { useEventListener } from "../useEventListener";
+import type {
+  Deserializer,
+  Serializer,
+  StorableRecord,
+  UseBrowserStorageOptions,
+  UseBrowserStorageReturn,
+} from "./types";
 
 const readStorage = <TResult>(
   storage: Storage,

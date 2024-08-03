@@ -1,19 +1,13 @@
-import * as globals from "@objectively/utils/globals";
+import { document } from "@objectively/utils";
 import { act, renderHook } from "@testing-library/react";
 import { usePageVisibility } from "./usePageVisibility";
 
 let hidden = false;
 
-const addEventListenerSpy = vitest.fn();
-
-vitest.spyOn(globals, "document", "get").mockImplementation(() => {
-  return {
-    ...document,
-    addEventListener: addEventListenerSpy,
-    removeEventListener: vitest.fn(),
-    hidden,
-  };
-});
+const addEventListenerSpy = vitest
+  .spyOn(document, "addEventListener")
+  .mockImplementation(vitest.fn());
+vitest.spyOn(document, "hidden", "get").mockImplementation(() => hidden);
 
 describe("#usePageVisibility", () => {
   beforeEach(() => {
@@ -46,7 +40,7 @@ describe("#usePageVisibility", () => {
 
     hidden = false;
     act(() => {
-      addEventListenerSpy.mock.lastCall?.at(1)?.();
+      (addEventListenerSpy.mock.lastCall?.at(1) as () => void)?.();
     });
     rerender();
 

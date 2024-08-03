@@ -1,12 +1,8 @@
 import { navigator } from "@objectively/utils";
 import { useEffect, useState } from "react";
+import type { UsePermissionReturn } from "./types";
 
-interface UsePermissionsReturn {
-  granted: boolean;
-  state: PermissionState;
-}
-
-export const usePermission = (permissionName: PermissionName): UsePermissionsReturn => {
+export const usePermission = (permissionName: PermissionName): UsePermissionReturn => {
   const [state, setState] = useState<PermissionState>("prompt");
 
   useEffect(() => {

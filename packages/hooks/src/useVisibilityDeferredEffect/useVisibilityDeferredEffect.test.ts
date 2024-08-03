@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
+import * as visibilityHooks from "../usePageVisibility";
 import { useVisibilityDeferredEffect } from "./useVisibilityDeferredEffect";
-import * as visibilityHooks from "./usePageVisibility";
 
 let visible = true;
 

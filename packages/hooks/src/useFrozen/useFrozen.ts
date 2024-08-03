@@ -1,5 +1,4 @@
-import { deepFreeze } from "@objectively/utils";
-import { safeStringify } from "@objectively/utils/json";
+import { deepFreeze, safeStringify } from "@objectively/utils";
 import { useMemo } from "react";
 
 export const useFrozen = <TValue>(value: TValue, deep = true): TValue => {

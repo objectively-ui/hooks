@@ -1,5 +1,5 @@
 import { type DependencyList, type EffectCallback, useEffect, useState } from "react";
-import { usePageVisibility } from "./usePageVisibility";
+import { usePageVisibility } from "../usePageVisibility";
 
 export const useVisibilityDeferredEffect = (
   effect: EffectCallback,
