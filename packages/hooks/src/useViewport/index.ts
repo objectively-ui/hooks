@@ -1,14 +1,16 @@
 import { deepFreeze, window } from "@objectively/utils";
 import { useState } from "react";
-import { useEventListener } from "./useEventListener";
+import { useEventListener } from "../useEventListener";
 
-interface ViewportSize {
+export interface ViewportSize {
   width: number;
   height: number;
 }
 
-export const useViewport = () => {
-  const [size, setSize] = useState<ViewportSize>();
+const zero = deepFreeze({ width: 0, height: 0 });
+
+export const useViewport = (): ViewportSize => {
+  const [size, setSize] = useState<ViewportSize>(zero);
 
   useEventListener(
     "resize",
@@ -23,6 +25,7 @@ export const useViewport = () => {
     {
       eventTarget: window,
       passive: true,
+      immediate: true,
     },
   );
 

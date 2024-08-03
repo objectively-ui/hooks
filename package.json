@@ -1,13 +1,13 @@
 {
-  "name": "objectively-hooks",
+  "name": "objectively",
   "private": true,
   "scripts": {
+    "start": "storybook dev -p 3000",
     "build": "turbo build",
     "dev": "turbo dev",
     "test": "turbo test",
     "lint": "turbo lint",
     "lint:apply": "turbo lint:apply",
-    "storybook": "storybook dev -p 3000",
     "build-storybook": "storybook build"
   },
   "devDependencies": {

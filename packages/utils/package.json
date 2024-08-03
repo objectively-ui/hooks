@@ -14,6 +14,10 @@
       "import": "./dist/es/debounce.mjs",
       "types": "./dist/es/debounce.d.ts"
     },
+    "./deepClone": {
+      "import": "./dist/es/deepClone.mjs",
+      "types": "./dist/es/deepClone.d.ts"
+    },
     "./deepFreeze": {
       "import": "./dist/es/deepFreeze.mjs",
       "types": "./dist/es/deepFreeze.d.ts"
@@ -37,6 +41,14 @@
     "./throttle": {
       "import": "./dist/es/throttle.mjs",
       "types": "./dist/es/throttle.d.ts"
+    },
+    "./types": {
+      "import": "./dist/es/types.mjs",
+      "types": "./dist/es/types.d.ts"
+    },
+    "./unwrapObjectGetters": {
+      "import": "./dist/es/unwrapObjectGetters.mjs",
+      "types": "./dist/es/unwrapObjectGetters.d.ts"
     }
   },
   "scripts": {

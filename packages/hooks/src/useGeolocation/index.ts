@@ -1,11 +1,12 @@
-import { navigator } from "@objectively/utils";
-import { useCallback, useEffect, useState } from "react";
+import { deepFreeze, navigator } from "@objectively/utils";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-interface UseGeolocationOptions {
+export interface UseGeolocationOptions {
   maxCacheAge?: number;
   timeout?: number;
   highAccuracy?: boolean;
   watch?: boolean;
+  immediateRequest?: boolean;
 }
 
 interface UseGeolocationReturn {
@@ -16,16 +17,28 @@ interface UseGeolocationReturn {
   refresh: () => Promise<GeolocationCoordinates>;
 }
 
-const errorForErrorCodes = new GeolocationPositionError();
-
 const geolocationErrorCodes = {
-  [errorForErrorCodes.PERMISSION_DENIED]: "PERMISSION_DENIED",
-  [errorForErrorCodes.POSITION_UNAVAILABLE]: "POSITION_UNAVAILABLE",
-  [errorForErrorCodes.TIMEOUT]: "TIMEOUT",
+  [GeolocationPositionError.PERMISSION_DENIED]: "PERMISSION_DENIED",
+  [GeolocationPositionError.POSITION_UNAVAILABLE]: "POSITION_UNAVAILABLE",
+  [GeolocationPositionError.TIMEOUT]: "TIMEOUT",
 } as const;
 
+// GeolocationPosition isn't stringify-able, so it needs to be cloned in this silly way
+const clonePosition = (pos: GeolocationPosition): GeolocationPosition => ({
+  timestamp: pos.timestamp,
+  coords: {
+    accuracy: pos.coords.accuracy,
+    altitude: pos.coords.altitude,
+    altitudeAccuracy: pos.coords.altitudeAccuracy,
+    heading: pos.coords.altitudeAccuracy,
+    latitude: pos.coords.latitude,
+    longitude: pos.coords.longitude,
+    speed: pos.coords.speed,
+  },
+});
+
 export const useGeolocation = (opts: UseGeolocationOptions = {}): UseGeolocationReturn => {
-  const { maxCacheAge, timeout, highAccuracy, watch } = opts;
+  const { maxCacheAge, timeout, highAccuracy, watch, immediateRequest } = opts;
   const [position, setPosition] = useState<GeolocationPosition>();
   const [error, setError] = useState<GeolocationPositionError>();
 
@@ -84,13 +97,23 @@ export const useGeolocation = (opts: UseGeolocationOptions = {}): UseGeolocation
     });
   }, [maxCacheAge, timeout, highAccuracy]);
 
-  return {
-    coordinates: position?.coords,
-    lastUpdatedAt: position?.timestamp ?? 0,
-    error,
-    errorCode: error
-      ? geolocationErrorCodes[error.code as keyof typeof geolocationErrorCodes]
-      : undefined,
-    refresh,
-  };
+  useEffect(() => {
+    if (immediateRequest) {
+      refresh();
+    }
+  }, [refresh, immediateRequest]);
+
+  return useMemo(
+    () =>
+      deepFreeze({
+        coordinates: position?.coords ? clonePosition(position).coords : undefined,
+        lastUpdatedAt: position?.timestamp ?? 0,
+        error: error,
+        errorCode: error
+          ? geolocationErrorCodes[error.code as keyof typeof geolocationErrorCodes]
+          : undefined,
+        refresh,
+      }),
+    [position, error, refresh],
+  );
 };

@@ -13,8 +13,8 @@ export const mapObject = <
 ): TReturn => {
   const res = {} as UnknownRecord;
 
-  for (const [k, v] of Object.entries(obj)) {
-    res[k] = func(k, v);
+  for (const k in obj) {
+    res[k] = func(k, obj[k]);
   }
 
   return res as TReturn;

@@ -8,6 +8,7 @@ import type { StorybookConfig } from "@storybook/react-vite";
 function getAbsolutePath(value: string): string {
   return dirname(require.resolve(join(value, "package.json")));
 }
+
 const config: StorybookConfig = {
   stories: ["../packages/**/*.mdx", "../packages/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
@@ -20,4 +21,5 @@ const config: StorybookConfig = {
     options: {},
   },
 };
+
 export default config;

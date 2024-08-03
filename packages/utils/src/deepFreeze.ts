@@ -6,7 +6,7 @@ export const deepFreeze = <TValue>(value: TValue): TValue => {
     return Object.freeze(value.map(deepFreeze) as TValue);
   }
 
-  if (typeof value === "object") {
+  if (value && typeof value === "object" && !(value instanceof Promise)) {
     return Object.freeze(mapObject(value as UnknownRecord, (_k, v) => deepFreeze(v)) as TValue);
   }
 
