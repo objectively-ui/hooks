@@ -1,8 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "ui": "tui",
+  "ui": "stream",
   "tasks": {
     "build": {
+      "cache": true,
       "dependsOn": [
         "^build"
       ],
@@ -11,26 +12,25 @@
         ".env*"
       ],
       "outputs": [
+        "dist/**",
         ".next/**",
         "!.next/cache/**"
       ]
     },
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ]
+      "dependsOn": []
     },
     "lint:apply": {
-      "dependsOn": [
-        "^lint:apply"
-      ]
+      "dependsOn": []
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
     "test": {
-      "cache": true
+      "dependsOn": [
+        "build"
+      ]
     }
   }
 }
