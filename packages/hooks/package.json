@@ -46,6 +46,10 @@
       "import": "./dist/es/useEventListener.mjs",
       "types": "./dist/es/useEventListener.d.ts"
     },
+    "./useFrozen": {
+      "import": "./dist/es/useFrozen.mjs",
+      "types": "./dist/es/useFrozen.d.ts"
+    },
     "./useGeolocation": {
       "import": "./dist/es/useGeolocation.mjs",
       "types": "./dist/es/useGeolocation.d.ts"
@@ -89,6 +93,10 @@
     "./useThrottle": {
       "import": "./dist/es/useThrottle.mjs",
       "types": "./dist/es/useThrottle.d.ts"
+    },
+    "./useThrottleValue": {
+      "import": "./dist/es/useThrottleValue.mjs",
+      "types": "./dist/es/useThrottleValue.d.ts"
     },
     "./useViewport": {
       "import": "./dist/es/useViewport.mjs",

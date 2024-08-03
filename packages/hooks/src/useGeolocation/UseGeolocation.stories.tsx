@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { type UseGeolocationOptions, useGeolocation } from ".";
+import type { UseGeolocationOptions } from './types';
+import { useGeolocation } from "./useGeolocation";
 
 const Component = (opts: UseGeolocationOptions) => {
   const { refresh, ...geo } = useGeolocation(opts);
-  console.log(geo)
+
   return (
     <div>
       <button type="button" onClick={refresh}>

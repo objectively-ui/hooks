@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { useInterval } from '.';
+import { useInterval } from './useInterval';
 
 const Component = () => {
   const [count, setCount] = useState(0)

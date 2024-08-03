@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useViewport } from '.';
+import { useViewport } from './useViewport';
 
 const Component = () => {
   const viewport = useViewport()

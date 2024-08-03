@@ -1,4 +1,4 @@
-import type { PlainValue, UnknownRecord } from "@objectively/utils";
+import { type PlainValue, type UnknownRecord, window } from "@objectively/utils";
 import { isSSR } from "@objectively/utils/ssr";
 import { useCallback, useState } from "react";
 import { useEventListener } from "./useEventListener";

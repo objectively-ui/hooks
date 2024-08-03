@@ -26,6 +26,10 @@
       "import": "./dist/es/globals.mjs",
       "types": "./dist/es/globals.d.ts"
     },
+    "./json": {
+      "import": "./dist/es/json.mjs",
+      "types": "./dist/es/json.d.ts"
+    },
     "./mapObject": {
       "import": "./dist/es/mapObject.mjs",
       "types": "./dist/es/mapObject.d.ts"

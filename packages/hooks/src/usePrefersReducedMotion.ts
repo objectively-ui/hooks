@@ -5,16 +5,19 @@ import { useEventListener } from "./useEventListener";
 const matcher = isSSR ? undefined : window.matchMedia("(prefers-reduced-motion: reduce)");
 
 export const usePrefersReducedMotion = () => {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(matcher?.matches ?? false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEventListener(
     "change",
-    (ev) => {
-      setPrefersReducedMotion(ev.matches);
+    () => {
+      if (matcher) {
+        setPrefersReducedMotion(matcher.matches);
+      }
     },
     {
       eventTarget: matcher,
       passive: true,
+      immediate: true,
     },
   );
 

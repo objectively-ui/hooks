@@ -1,6 +1,8 @@
 import { isSSR, navigator, window } from "@objectively/utils";
 import { useState } from "react";
-import { useEventListener } from "./useEventListener";
+import { useEventListener } from "../useEventListener";
+import { useFrozen } from "../useFrozen";
+import type { UsePreferredLanguageOptions, UsePreferredLanguageReturn } from "./types";
 
 const getPreferredLanguages = (defaultLanguage = "en-US") => {
   if (isSSR) {
@@ -9,15 +11,6 @@ const getPreferredLanguages = (defaultLanguage = "en-US") => {
 
   return navigator.languages;
 };
-
-interface UsePreferredLanguageOptions {
-  defaultLanguage?: string;
-}
-
-interface UsePreferredLanguageReturn {
-  preferredLanguage: string;
-  fallbackLanguages: string[];
-}
 
 export const usePreferredLanguage = (
   opts: UsePreferredLanguageOptions = {},
@@ -36,8 +29,8 @@ export const usePreferredLanguage = (
     },
   );
 
-  return {
+  return useFrozen({
     preferredLanguage: languages[0] || opts.defaultLanguage || "en-US",
     fallbackLanguages: languages,
-  };
+  });
 };
