@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo --port 3001",
+    "dev.skip": "next dev --turbo --port 3001",
     "build.skip": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "lint:apply": "biome format --write && biome lint --write"
+    "start.skip": "next start",
+    "lint.skip": "next lint",
+    "lint:apply.skip": "biome format --write && biome lint --write"
   },
   "dependencies": {
     "@objectively/hooks": "workspace:*",

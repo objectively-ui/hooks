@@ -113,6 +113,7 @@
   },
   "scripts": {
     "build": "update-package-exports && bunchee",
+    "clean": "pnpx rimraf node_modules dist",
     "lint": "biome lint",
     "lint:apply": "biome format --write && biome lint --write",
     "test": "vitest run"
