@@ -59,7 +59,7 @@
     "build": "update-package-exports && bunchee",
     "lint": "biome lint",
     "lint:apply": "biome format --write && biome lint --write",
-    "test": "echo nothing"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
