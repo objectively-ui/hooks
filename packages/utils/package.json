@@ -34,10 +34,6 @@
       "import": "./dist/es/mapObject.mjs",
       "types": "./dist/es/mapObject.d.ts"
     },
-    "./promise": {
-      "import": "./dist/es/promise.mjs",
-      "types": "./dist/es/promise.d.ts"
-    },
     "./ssr": {
       "import": "./dist/es/ssr.mjs",
       "types": "./dist/es/ssr.d.ts"
