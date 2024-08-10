@@ -1,8 +1,7 @@
 import { deepFreeze, window } from "@objectively/utils";
 import { useState } from "react";
-import { useCallbackRef } from "../useCallbackRef";
 import { useEventListener } from "../useEventListener";
-import type { DeviceMotion, UseDeviceMotionOpts } from "./types";
+import type { DeviceMotion } from "./types";
 
 const zeroMotion = deepFreeze<DeviceMotion>({
   acceleration: { x: 0, y: 0, z: 0 },
@@ -11,8 +10,7 @@ const zeroMotion = deepFreeze<DeviceMotion>({
   interval: 0,
 });
 
-export const useDeviceMotion = (opts: UseDeviceMotionOpts): DeviceMotion => {
-  const onMoveRef = useCallbackRef(opts.onMove);
+export const useDeviceMotion = (): DeviceMotion => {
   const [motion, setMotion] = useState<DeviceMotion>(zeroMotion);
 
   useEventListener(
@@ -26,7 +24,6 @@ export const useDeviceMotion = (opts: UseDeviceMotionOpts): DeviceMotion => {
           interval: e.interval,
         }),
       );
-      onMoveRef.current(e);
     },
     {
       eventTarget: window,

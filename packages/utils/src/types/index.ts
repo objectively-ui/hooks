@@ -6,3 +6,9 @@ export type UnknownFunction<TPromise extends boolean = false> = (
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   ...args: any[]
 ) => TPromise extends true ? Promise<void> : void;
+
+export type FlattenedObjectKeys<T extends UnknownRecord, K = keyof T> = K extends string
+  ? T[K] extends UnknownRecord
+    ? `${K}.${FlattenedObjectKeys<T[K]>}`
+    : `${K}`
+  : never;

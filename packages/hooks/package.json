@@ -1,7 +1,7 @@
 {
   "name": "@objectively/hooks",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "files": [
     "dist"
   ],
@@ -101,6 +101,10 @@
     "./useThrottleValue": {
       "import": "./dist/es/useThrottleValue.mjs",
       "types": "./dist/es/useThrottleValue.d.ts"
+    },
+    "./useTranslate": {
+      "import": "./dist/es/useTranslate.mjs",
+      "types": "./dist/es/useTranslate.d.ts"
     },
     "./useViewport": {
       "import": "./dist/es/useViewport.mjs",

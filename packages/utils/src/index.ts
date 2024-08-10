@@ -2,6 +2,7 @@ export * from "./debounce";
 export * from "./deepClone";
 export * from "./deepFreeze";
 export * from "./globals";
+export * from "./interpolate";
 export * from "./json";
 export * from "./mapObject";
 export * from "./ssr";

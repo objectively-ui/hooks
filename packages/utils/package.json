@@ -1,7 +1,7 @@
 {
   "name": "@objectively/utils",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "files": [
     "dist"
   ],
@@ -25,6 +25,10 @@
     "./globals": {
       "import": "./dist/es/globals.mjs",
       "types": "./dist/es/globals.d.ts"
+    },
+    "./interpolate": {
+      "import": "./dist/es/interpolate.mjs",
+      "types": "./dist/es/interpolate.d.ts"
     },
     "./json": {
       "import": "./dist/es/json.mjs",

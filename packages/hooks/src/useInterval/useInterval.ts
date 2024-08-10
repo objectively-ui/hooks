@@ -1,22 +1,20 @@
 import { window } from "@objectively/utils";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useCallbackRef } from "../useCallbackRef";
 
-export const useInterval = (callback: () => void, delay: number | null) => {
+export const useInterval = (callback: () => void, delay: number | null): void => {
   const cb = useCallbackRef(callback);
-  const intervalRef = useRef<number | undefined>();
 
   useEffect(() => {
-    if (delay === null) {
-      window.clearInterval(intervalRef.current);
-    } else {
-      intervalRef.current = window.setInterval(() => {
-        cb.current();
-      }, delay);
-    }
+    const interval =
+      delay === null
+        ? undefined
+        : window.setInterval(() => {
+            cb.current();
+          }, delay);
 
     return () => {
-      window.clearInterval(intervalRef.current);
+      window.clearInterval(interval);
     };
   }, [delay]);
 };

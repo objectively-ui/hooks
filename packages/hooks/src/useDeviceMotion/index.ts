@@ -1,2 +1,2 @@
 export * from "./useDeviceMotion";
-export type { DeviceMotion, UseDeviceMotionOpts } from "./types";
+export type { DeviceMotion } from "./types";

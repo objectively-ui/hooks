@@ -29,8 +29,10 @@ export const usePreferredLanguage = (
     },
   );
 
+  const preferredLanguage = languages[0] || opts.defaultLanguage || "en-US";
+
   return useFrozen({
-    preferredLanguage: languages[0] || opts.defaultLanguage || "en-US",
+    preferredLanguage,
     fallbackLanguages: languages,
   });
 };
