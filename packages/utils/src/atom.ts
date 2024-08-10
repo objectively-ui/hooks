@@ -1,3 +1,5 @@
+import { isFunction } from "./isFunction";
+
 class AtomChangeEvent<TValue> extends CustomEvent<{ value: TValue }> {}
 class AtomEvent extends Event {}
 class AtomErrorEvent extends ErrorEvent {}
@@ -15,16 +17,22 @@ type ResolvableValue<TValue> =
   | ((...args: unknown[]) => TValue)
   | ((...args: unknown[]) => Promise<TValue>);
 
-export interface AtomOptions<TValue> {
-  defaultValue?: ResolvableValue<TValue>;
-  persist?: boolean;
+export interface AtomPersistence<TValue> {
+  get: (name: string) => TValue;
+  set: (name: string, value: TValue) => void;
 }
 
-export class Atom<const TName extends string, TValue> extends EventTarget {
+export interface AtomOptions<TValue> {
+  defaultValue?: ResolvableValue<TValue>;
+  persist?: AtomPersistence<TValue>;
+}
+
+export class Atom<TValue, const TName extends string> extends EventTarget {
   name: TName;
-  private opts: AtomOptions<TValue>;
   value?: TValue;
   resolved = false;
+  private opts: AtomOptions<TValue>;
+  private asPromiseCached?: Promise<this>;
 
   constructor(name: TName, opts: AtomOptions<TValue>) {
     super();
@@ -32,13 +40,17 @@ export class Atom<const TName extends string, TValue> extends EventTarget {
     this.opts = opts;
 
     if (!this.restore()) {
-      if (opts?.defaultValue) {
+      if (opts?.defaultValue !== undefined) {
         this.resolveValue(opts.defaultValue);
       }
     }
   }
 
   setValue(value: TValue) {
+    if (value === this.value) {
+      return;
+    }
+
     this.value = value;
     this.persist();
 
@@ -52,43 +64,51 @@ export class Atom<const TName extends string, TValue> extends EventTarget {
   }
 
   async asPromise() {
-    if (this.resolved) {
-      return Promise.resolve(this);
+    if (this.asPromiseCached) {
+      return this.asPromiseCached;
     }
 
-    return new Promise((resolve, reject) => {
-      const onLoad = () => {
-        resolve(this);
-        this.removeEventListener("load", onLoad);
-        this.removeEventListener("error", onError);
-      };
-      const onError = (e: AtomErrorEvent) => {
-        reject(e);
-        this.removeEventListener("load", onLoad);
-        this.removeEventListener("error", onError);
-      };
+    if (this.resolved) {
+      this.asPromiseCached = Promise.resolve(this);
+    } else {
+      this.asPromiseCached = new Promise((resolve, reject) => {
+        const onLoad = () => {
+          resolve(this);
+          this.removeEventListener("load", onLoad);
+          this.removeEventListener("error", onError);
+        };
+        const onError = (e: AtomErrorEvent) => {
+          reject(e);
+          this.removeEventListener("load", onLoad);
+          this.removeEventListener("error", onError);
+        };
 
-      this.addEventListener("load", onLoad);
-      this.addEventListener("error", onError);
-    });
+        this.addEventListener("load", onLoad);
+        this.addEventListener("error", onError);
+      });
+    }
+
+    return this.asPromiseCached;
   }
 
   private async resolveValue(value: ResolvableValue<TValue>) {
     let resolved: unknown = value;
 
     try {
-      if (typeof resolved === "function") {
-        resolved = (resolved as () => TValue | Promise<TValue>)();
+      this.dispatchEvent(new AtomEvent("loadstart"));
+
+      if (isFunction(resolved)) {
+        resolved = resolved();
       }
 
       if (resolved instanceof Promise) {
-        this.dispatchEvent(new AtomEvent("loadstart"));
         resolved = await resolved;
-        this.dispatchEvent(new AtomEvent("load"));
       }
 
       this.value = resolved as TValue;
       this.resolved = true;
+
+      this.dispatchEvent(new AtomEvent("load"));
     } catch (e) {
       if (!(e instanceof Error)) {
         throw new Error("Non-error object was thrown", { cause: e });
@@ -98,7 +118,13 @@ export class Atom<const TName extends string, TValue> extends EventTarget {
   }
 
   private persist() {
-    if (!this.opts?.persist) {
+    if (!this.opts?.persist?.set) {
+      return true;
+    }
+
+    if (this.value !== undefined) {
+      this.opts.persist.set(this.name, this.value);
+
       return true;
     }
 
@@ -106,8 +132,15 @@ export class Atom<const TName extends string, TValue> extends EventTarget {
   }
 
   private restore() {
-    if (!this.opts?.persist) {
+    if (!this.opts?.persist?.get) {
       return false;
+    }
+
+    const value = this.opts.persist.get(this.name);
+    if (value !== undefined) {
+      this.value = value;
+      this.resolved = true;
+      return true;
     }
 
     return false;
@@ -130,11 +163,9 @@ export class Atom<const TName extends string, TValue> extends EventTarget {
   }
 }
 
-export const atom = <const TName extends string, TValue>(
+export const atom = <TValue, const TName extends string>(
   name: TName,
   opts: AtomOptions<TValue>,
-): Atom<TName, TValue> => {
-  const internalValue = new Atom(name, opts);
-
-  return internalValue;
+): Atom<TValue, TName> => {
+  return new Atom(name, opts);
 };

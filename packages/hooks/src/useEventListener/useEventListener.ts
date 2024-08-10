@@ -2,7 +2,13 @@ import { useEffect } from "react";
 import { useCallbackRef } from "../useCallbackRef";
 import type { UseEventOptions } from "./types";
 
-type ListenableTarget = Window | Document | Element | PermissionStatus | MediaQueryList;
+type ListenableTarget =
+  | Window
+  | Document
+  | Element
+  | PermissionStatus
+  | MediaQueryList
+  | EventTarget;
 
 type EventMap<TEventTarget> = TEventTarget extends Window
   ? WindowEventMap

@@ -8,4 +8,6 @@ export * from "./mapObject";
 export * from "./ssr";
 export * from "./throttle";
 export * from "./types";
+export * from "./isFunction";
+export { atom, type AtomOptions } from "./atom";
 export * from "./unwrapObjectGetters";
