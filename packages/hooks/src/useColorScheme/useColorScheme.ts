@@ -4,6 +4,8 @@ import { useCallbackRef } from "../useCallbackRef";
 import { useEventListener } from "../useEventListener";
 import type { ColorScheme, PersistColorScheme, UseColorSchemeOptions } from "./types";
 
+const storageKey = "objectively.colorscheme";
+
 const prefersDarkMatcher = isSSR ? undefined : window.matchMedia("(prefers-color-scheme: dark)");
 
 const getPreferredScheme = () => (prefersDarkMatcher?.matches ? "dark" : "light");
@@ -13,7 +15,7 @@ const localStoragePersist: PersistColorScheme = {
     if (isSSR) {
       return undefined;
     }
-    const saved = localStorage.getItem("color-scheme");
+    const saved = localStorage.getItem(storageKey);
 
     if (!saved) {
       return undefined;
@@ -26,7 +28,11 @@ const localStoragePersist: PersistColorScheme = {
     }
   },
   setColorScheme: (colorScheme) =>
-    isSSR ? undefined : localStorage.setItem("color-scheme", JSON.stringify(colorScheme)),
+    isSSR
+      ? undefined
+      : colorScheme
+        ? localStorage.setItem(storageKey, JSON.stringify(colorScheme))
+        : localStorage.removeItem(storageKey),
 };
 
 export const useColorScheme = (
@@ -64,6 +70,7 @@ export const useColorScheme = (
     (colorScheme: ColorScheme) => {
       if (colorScheme === systemScheme) {
         setUserScheme(undefined);
+        persistColorScheme.current(undefined);
       } else {
         setUserScheme(colorScheme);
         persistColorScheme.current(colorScheme);

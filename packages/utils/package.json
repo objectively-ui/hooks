@@ -10,6 +10,10 @@
       "import": "./dist/es/index.mjs",
       "types": "./dist/es/index.d.ts"
     },
+    "./atom": {
+      "import": "./dist/es/atom.mjs",
+      "types": "./dist/es/atom.d.ts"
+    },
     "./debounce": {
       "import": "./dist/es/debounce.mjs",
       "types": "./dist/es/debounce.d.ts"

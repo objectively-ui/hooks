@@ -86,13 +86,13 @@
       "import": "./dist/es/useRerender.mjs",
       "types": "./dist/es/useRerender.d.ts"
     },
+    "./useScript": {
+      "import": "./dist/es/useScript.mjs",
+      "types": "./dist/es/useScript.d.ts"
+    },
     "./useSelection": {
       "import": "./dist/es/useSelection.mjs",
       "types": "./dist/es/useSelection.d.ts"
-    },
-    "./useSSR": {
-      "import": "./dist/es/useSSR.mjs",
-      "types": "./dist/es/useSSR.d.ts"
     },
     "./useThrottle": {
       "import": "./dist/es/useThrottle.mjs",
