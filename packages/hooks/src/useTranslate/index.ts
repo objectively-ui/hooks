@@ -1,2 +1,2 @@
 export * from "./useTranslate";
-export type { UseTranslateOptions, Locale } from "./types";
+export type { UseTranslateOptions, TranslationsLangDict } from "./types";

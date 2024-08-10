@@ -4,7 +4,7 @@ import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 const Component = () => {
   const reduced = usePrefersReducedMotion();
 
-  return <p>Prefers reduced motion? {reduced}</p>;
+  return <p>Prefers reduced motion? {reduced.toString()}</p>;
 };
 
 const meta: Meta<typeof usePrefersReducedMotion> = {

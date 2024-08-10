@@ -1,6 +1,6 @@
 import type { PlainValue, UnknownRecord } from "@objectively/utils";
 
-export type StorableValue = PlainValue | Record<string, PlainValue> | PlainValue[];
+export type StorableValue = PlainValue | Record<string, PlainValue> | PlainValue[] | undefined;
 export type StorableRecord = Record<string, StorableValue>;
 
 export type Serializer<TData extends UnknownRecord = UnknownRecord> = <

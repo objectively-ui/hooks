@@ -4,7 +4,7 @@ import { usePageVisibility } from "./usePageVisibility";
 const Component = () => {
   const { visible } = usePageVisibility();
 
-  return <p>Visible? {visible}</p>;
+  return <p>Visible? {visible.toString()}</p>;
 };
 
 const meta: Meta<typeof usePageVisibility> = {

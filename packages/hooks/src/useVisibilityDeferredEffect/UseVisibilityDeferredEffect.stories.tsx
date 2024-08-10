@@ -8,7 +8,7 @@ const Component = () => {
 
   useEffect(() => setA(new Date()), []);
 
-  useVisibilityDeferredEffect(() => setA(new Date()), []);
+  useVisibilityDeferredEffect(() => setB(new Date()), []);
 
   return (
     <div>

@@ -15,7 +15,6 @@ export const useBrowserStorageState = <TValue extends StorableValue>(
   });
 
   const { defaultValue } = opts;
-
   const value = (storage.data[key] ?? defaultValue) as TValue;
 
   const setValue = useCallback<Dispatch<SetStateAction<TValue>>>(

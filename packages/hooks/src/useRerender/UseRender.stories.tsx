@@ -1,16 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import { useRerender } from "./useRerender";
 
 const Component = () => {
-  const [count, setCount] = useState(0);
+  const count = useRef(0);
+  count.current++;
   const rerender = useRerender();
-
-  useEffect(() => setCount((count) => count + 1), []);
 
   return (
     <div>
-      <p>Count: {count}</p>
+      <p>Count: {count.current}</p>
       <button type="button" onClick={rerender}>
         Increment
       </button>

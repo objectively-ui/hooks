@@ -23,7 +23,7 @@ const readStorage = <TResult>(
       continue;
     }
 
-    result[key] = deserialize(key, storage[i]);
+    result[key] = deserialize(key, storage.getItem(key) || "");
   }
 
   return result as TResult;
@@ -70,13 +70,22 @@ export const useBrowserStorage = <TData extends StorableRecord>(
   const clear = useCallback(
     (key?: string & keyof TData) => {
       if (key) {
+        if (keys && !keys.includes(key)) {
+          throw new Error(
+            `The key "${key}" is not in the provided keys filter. Expected one of ${keys.join(", ")}`,
+          );
+        }
         setValue(key, undefined);
+      } else if (keys) {
+        for (const key of keys) {
+          setValue(key, undefined);
+        }
       } else {
         setData({});
         storage?.clear();
       }
     },
-    [storage, setValue],
+    [storage, setValue, keys],
   );
 
   useEventListener(
