@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Suspense } from "react";
 import { useColorScheme } from "./useColorScheme";
 
 const Component = () => {
-  const [scheme, setScheme] = useColorScheme();
+  const [_, setScheme] = useColorScheme();
+  const [scheme] = useColorScheme();
 
   return (
     <div>
@@ -18,6 +20,15 @@ const meta: Meta<typeof useColorScheme> = {
   title: "hooks/useColorScheme",
   component: Component,
   tags: ["autodocs"],
+  decorators: [
+    (Component) => {
+      return (
+        <Suspense fallback="Loading">
+          <Component />
+        </Suspense>
+      );
+    },
+  ],
 };
 
 export default meta;

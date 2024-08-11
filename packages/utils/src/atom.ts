@@ -1,3 +1,4 @@
+import { deepEqual } from "./deepEqual";
 import { isFunction } from "./isFunction";
 import { safeStringify } from "./json";
 
@@ -54,12 +55,14 @@ export class Atom<TValue, const TName extends string> extends EventTarget {
     if (!this.restore()) {
       if (opts?.defaultValue !== undefined) {
         this.resolveValue(opts.defaultValue);
+      } else {
+        this.resolved = true;
       }
     }
   }
 
   setValue(value: TValue | undefined) {
-    if (value === this.value) {
+    if (deepEqual(value, this.value)) {
       return;
     }
 
@@ -181,7 +184,7 @@ export class Atom<TValue, const TName extends string> extends EventTarget {
   }
 }
 
-export const atom = <TValue, const TName extends string>(
+export const atom = <TValue, const TName extends string = string>(
   name: TName,
   opts: AtomOptions<TValue>,
 ): Atom<TValue, TName> => {

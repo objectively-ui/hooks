@@ -11,15 +11,15 @@
     "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^8.2.7",
-    "@storybook/addon-interactions": "^8.2.7",
-    "@storybook/addon-links": "^8.2.7",
-    "@storybook/blocks": "^8.2.7",
-    "@storybook/react": "^8.2.7",
-    "@storybook/react-vite": "^8.2.7",
-    "@storybook/test": "^8.2.7",
+    "@storybook/addon-essentials": "^8.2.8",
+    "@storybook/addon-interactions": "^8.2.8",
+    "@storybook/addon-links": "^8.2.8",
+    "@storybook/blocks": "^8.2.8",
+    "@storybook/react": "^8.2.8",
+    "@storybook/react-vite": "^8.2.8",
+    "@storybook/test": "^8.2.8",
     "prettier": "^3.2.5",
-    "storybook": "^8.2.7",
+    "storybook": "^8.2.8",
     "turbo": "^2.0.9",
     "typescript": "^5.4.5"
   },

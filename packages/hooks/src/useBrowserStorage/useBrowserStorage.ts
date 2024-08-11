@@ -1,5 +1,6 @@
 import { isSSR, window } from "@objectively/utils";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
+import { useAtom, useAtomState } from "../useAtom";
 import { useEventListener } from "../useEventListener";
 import type {
   Deserializer,
@@ -13,7 +14,7 @@ const readStorage = <TResult>(
   storage: Storage,
   keys: string[] | undefined,
   deserialize: Deserializer,
-) => {
+): Partial<TResult> => {
   const result: StorableRecord = {};
 
   for (let i = 0; i < storage.length; ++i) {
@@ -44,9 +45,12 @@ export const useBrowserStorage = <TData extends StorableRecord>(
         : opts.storage ?? window.localStorage;
   const { keys, serializeValue = defaultSerializer, deserializeValue = defaultDeserializer } = opts;
 
-  const [data, setData] = useState<Partial<TData>>(
-    storage ? readStorage<TData>(storage, keys, deserializeValue) : {},
+  const storageAtom = useAtom(
+    `objectively.browserstorage.${opts.storage?.toString() || "local"}`,
+    storage ? readStorage<TData>(storage, keys, deserializeValue) : ({} as Partial<TData>),
   );
+
+  const [data, setData] = useAtomState(storageAtom);
 
   const setValue = useCallback(
     <TKey extends string & keyof TData>(key: TKey, value: TData[TKey] | undefined) => {
@@ -116,7 +120,7 @@ export const useBrowserStorage = <TData extends StorableRecord>(
   );
 
   return {
-    data,
+    data: data || {},
     setValue,
     clear,
   };

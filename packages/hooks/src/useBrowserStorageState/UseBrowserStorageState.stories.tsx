@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useBrowserStorageState } from "./useBrowserStorageState";
+import { useBrowserStorageState, useSessionStorageState } from "./useBrowserStorageState";
 
 const Component = () => {
-  const [count, setCount] = useBrowserStorageState<number | undefined>("count", {
+  const [count] = useBrowserStorageState<number | undefined>("count", {
     defaultValue: 0,
     storage: "session",
   });
+
+  const [_, setCount] = useSessionStorageState<number | undefined>("count");
 
   return (
     <div>

@@ -1,5 +1,6 @@
 import { isSSR } from "@objectively/utils";
 import { useCallback, useState } from "react";
+import { useAtom, useAtomState } from "../useAtom";
 import { useCallbackRef } from "../useCallbackRef";
 import { useEventListener } from "../useEventListener";
 import type { ColorScheme, PersistColorScheme, UseColorSchemeOptions } from "./types";
@@ -45,10 +46,12 @@ export const useColorScheme = (
   const persistColorScheme = useCallbackRef(
     opts.persist?.setColorScheme || localStoragePersist.setColorScheme,
   );
-
-  const [userScheme, setUserScheme] = useState<ColorScheme | undefined>(
-    force || restoreColorScheme.current(),
+  const colorSchemeAtom = useAtom<ColorScheme | undefined>(
+    "objectively.colorscheme",
+    force ?? restoreColorScheme.current(),
   );
+
+  const [userScheme, setUserScheme] = useAtomState(colorSchemeAtom);
   const [systemScheme, setSystemScheme] = useState<ColorScheme>(getPreferredScheme());
 
   useEventListener(

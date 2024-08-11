@@ -22,6 +22,10 @@
       "import": "./dist/es/deepClone.mjs",
       "types": "./dist/es/deepClone.d.ts"
     },
+    "./deepEqual": {
+      "import": "./dist/es/deepEqual.mjs",
+      "types": "./dist/es/deepEqual.d.ts"
+    },
     "./deepFreeze": {
       "import": "./dist/es/deepFreeze.mjs",
       "types": "./dist/es/deepFreeze.d.ts"

@@ -26,6 +26,16 @@
               {
                 "name": "useCallbackRef",
                 "stableResult": true
+              },
+              {
+                "name": "useSetAtomState",
+                "stableResult": true
+              },
+              {
+                "name": "useAtomState",
+                "stableResult": [
+                  1
+                ]
               }
             ]
           }
