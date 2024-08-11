@@ -2,6 +2,7 @@ import { atom } from "@objectively/utils";
 import type { Atom } from "@objectively/utils/atom";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Suspense } from "react";
+import { useAtomReset } from "./useAtomReset";
 import { useAtomState } from "./useAtomState";
 
 const wait = () => new Promise<number>((resolve) => setTimeout(() => resolve(1), 5000));
@@ -29,6 +30,7 @@ const storageAtom = atom("storage", {
 const Component = ({ atom }: { atom: Atom<number, string> }) => {
   const [_, setCount] = useAtomState(atom);
   const [count] = useAtomState(atom);
+  const reset = useAtomReset(atom);
 
   return (
     <div>
@@ -36,7 +38,7 @@ const Component = ({ atom }: { atom: Atom<number, string> }) => {
       <button type="button" onClick={() => setCount((c) => c + 1)}>
         Increment
       </button>
-      <button type="button" onClick={() => setCount(0)}>
+      <button type="button" onClick={reset}>
         Reset
       </button>
     </div>

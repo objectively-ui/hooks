@@ -1,4 +1,4 @@
-export * from "./useAtomState";
+export * from "./useAtom";
 export * from "./useBrowserStorage";
 export * from "./useBrowserStorageState";
 export * from "./useCallbackRef";

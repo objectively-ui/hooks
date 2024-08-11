@@ -10,9 +10,9 @@
       "import": "./dist/es/index.mjs",
       "types": "./dist/es/index.d.ts"
     },
-    "./useAtomState": {
-      "import": "./dist/es/useAtomState.mjs",
-      "types": "./dist/es/useAtomState.d.ts"
+    "./useAtom": {
+      "import": "./dist/es/useAtom.mjs",
+      "types": "./dist/es/useAtom.d.ts"
     },
     "./useBrowserStorage": {
       "import": "./dist/es/useBrowserStorage.mjs",

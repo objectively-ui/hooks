@@ -1,4 +1,5 @@
 import { isFunction } from "./isFunction";
+import { safeStringify } from "./json";
 
 class AtomChangeEvent<TValue> extends CustomEvent<{ value: TValue }> {}
 class AtomEvent extends Event {}
@@ -27,10 +28,21 @@ export interface AtomOptions<TValue> {
   persist?: AtomPersistence<TValue>;
 }
 
+export const localStoragePersistor: AtomPersistence<unknown> = {
+  get(name) {
+    const value = localStorage.getItem(name);
+    return value ? JSON.parse(value) : undefined;
+  },
+  set(name, value) {
+    localStorage.setItem(name, safeStringify(value));
+  },
+};
+
 export class Atom<TValue, const TName extends string> extends EventTarget {
   name: TName;
   value?: TValue;
   resolved = false;
+  private initialValue?: TValue;
   private opts: AtomOptions<TValue>;
   private asPromiseCached?: Promise<this>;
 
@@ -46,7 +58,7 @@ export class Atom<TValue, const TName extends string> extends EventTarget {
     }
   }
 
-  setValue(value: TValue) {
+  setValue(value: TValue | undefined) {
     if (value === this.value) {
       return;
     }
@@ -61,6 +73,10 @@ export class Atom<TValue, const TName extends string> extends EventTarget {
         },
       }),
     );
+  }
+
+  reset() {
+    this.setValue(this.initialValue);
   }
 
   async asPromise() {
@@ -106,6 +122,7 @@ export class Atom<TValue, const TName extends string> extends EventTarget {
       }
 
       this.value = resolved as TValue;
+      this.initialValue = this.value;
       this.resolved = true;
 
       this.dispatchEvent(new AtomEvent("load"));
@@ -139,6 +156,7 @@ export class Atom<TValue, const TName extends string> extends EventTarget {
     const value = this.opts.persist.get(this.name);
     if (value !== undefined) {
       this.value = value;
+      this.initialValue = value;
       this.resolved = true;
       return true;
     }
