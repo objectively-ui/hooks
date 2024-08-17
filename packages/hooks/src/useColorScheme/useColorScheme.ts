@@ -1,9 +1,10 @@
 import { isSSR } from "@objectively/utils";
 import { useCallback, useState } from "react";
 import { useAtom, useAtomState } from "../useAtom";
+import { useLocalStorageState } from "../useBrowserStorageState";
 import { useCallbackRef } from "../useCallbackRef";
 import { useEventListener } from "../useEventListener";
-import type { ColorScheme, PersistColorScheme, UseColorSchemeOptions } from "./types";
+import type { ColorScheme, UseColorSchemeOptions } from "./types";
 
 const storageKey = "objectively.colorscheme";
 
@@ -11,41 +12,19 @@ const prefersDarkMatcher = isSSR ? undefined : window.matchMedia("(prefers-color
 
 const getPreferredScheme = () => (prefersDarkMatcher?.matches ? "dark" : "light");
 
-const localStoragePersist: PersistColorScheme = {
-  getColorScheme: () => {
-    if (isSSR) {
-      return undefined;
-    }
-    const saved = localStorage.getItem(storageKey);
-
-    if (!saved) {
-      return undefined;
-    }
-
-    try {
-      return JSON.parse(saved) as ColorScheme;
-    } catch (e) {
-      return undefined;
-    }
-  },
-  setColorScheme: (colorScheme) =>
-    isSSR
-      ? undefined
-      : colorScheme
-        ? localStorage.setItem(storageKey, JSON.stringify(colorScheme))
-        : localStorage.removeItem(storageKey),
-};
-
 export const useColorScheme = (
   opts: UseColorSchemeOptions = {},
 ): [ColorScheme, (colorScheme: ColorScheme) => void] => {
   const { force } = opts;
+
+  const [localStorageValue, setLocalStorageValue] = useLocalStorageState<ColorScheme | undefined>(
+    storageKey,
+  );
   const restoreColorScheme = useCallbackRef(
-    opts.persist?.getColorScheme || localStoragePersist.getColorScheme,
+    opts.persist?.getColorScheme || (() => localStorageValue),
   );
-  const persistColorScheme = useCallbackRef(
-    opts.persist?.setColorScheme || localStoragePersist.setColorScheme,
-  );
+  const persistColorScheme = useCallbackRef(opts.persist?.setColorScheme || setLocalStorageValue);
+
   const colorSchemeAtom = useAtom<ColorScheme | undefined>(
     "objectively.colorscheme",
     force ?? restoreColorScheme.current(),

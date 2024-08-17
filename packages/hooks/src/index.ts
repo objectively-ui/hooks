@@ -22,6 +22,7 @@ export * from "./useSelection";
 export * from "./useScript";
 export * from "./useThrottle";
 export * from "./useTranslate";
+export * from "./useUnmount";
 export * from "./useThrottleValue";
 export * from "./useViewport";
 export * from "./useVisibilityDeferredEffect";
