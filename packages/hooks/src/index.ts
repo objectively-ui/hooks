@@ -12,6 +12,8 @@ export * from "./useFrozen";
 export * from "./useGeolocation";
 export * from "./useInterval";
 export * from "./useIsClient";
+export * from "./useImmediateRerender";
+export * from "./useMediaQuery";
 export * from "./useIsomorphicLayoutEffect";
 export * from "./usePageVisibility";
 export * from "./usePermission";

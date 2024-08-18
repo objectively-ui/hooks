@@ -1,22 +1,17 @@
-import { isSSR } from "@objectively/utils";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useAtom, useAtomState } from "../useAtom";
 import { useLocalStorageState } from "../useBrowserStorageState";
 import { useCallbackRef } from "../useCallbackRef";
-import { useEventListener } from "../useEventListener";
+import { useMediaQuery } from "../useMediaQuery";
 import type { ColorScheme, UseColorSchemeOptions } from "./types";
 
 const storageKey = "objectively.colorscheme";
-
-const prefersDarkMatcher = isSSR ? undefined : window.matchMedia("(prefers-color-scheme: dark)");
-
-const getPreferredScheme = () => (prefersDarkMatcher?.matches ? "dark" : "light");
 
 export const useColorScheme = (
   opts: UseColorSchemeOptions = {},
 ): [ColorScheme, (colorScheme: ColorScheme) => void] => {
   const { force } = opts;
-
+  const preferredScheme = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
   const [localStorageValue, setLocalStorageValue] = useLocalStorageState<ColorScheme | undefined>(
     storageKey,
   );
@@ -31,26 +26,10 @@ export const useColorScheme = (
   );
 
   const [userScheme, setUserScheme] = useAtomState(colorSchemeAtom);
-  const [systemScheme, setSystemScheme] = useState<ColorScheme>(getPreferredScheme());
-
-  useEventListener(
-    "change",
-    () => {
-      if (force) {
-        return;
-      }
-
-      setSystemScheme(getPreferredScheme());
-    },
-    {
-      eventTarget: prefersDarkMatcher,
-      passive: true,
-    },
-  );
 
   const setScheme = useCallback(
     (colorScheme: ColorScheme) => {
-      if (colorScheme === systemScheme) {
+      if (colorScheme === preferredScheme) {
         setUserScheme(undefined);
         persistColorScheme.current(undefined);
       } else {
@@ -58,8 +37,8 @@ export const useColorScheme = (
         persistColorScheme.current(colorScheme);
       }
     },
-    [systemScheme],
+    [preferredScheme],
   );
 
-  return [force || userScheme || systemScheme, setScheme];
+  return [force || userScheme || preferredScheme, setScheme];
 };

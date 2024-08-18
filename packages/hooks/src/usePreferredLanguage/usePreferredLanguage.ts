@@ -1,16 +1,8 @@
-import { isSSR, navigator, window } from "@objectively/utils";
-import { useState } from "react";
+import { navigator, window } from "@objectively/utils";
+import { useMemo, useState } from "react";
 import { useEventListener } from "../useEventListener";
 import { useFrozen } from "../useFrozen";
 import type { UsePreferredLanguageOptions, UsePreferredLanguageReturn } from "./types";
-
-const getPreferredLanguages = (defaultLanguage = "en-US") => {
-  if (isSSR) {
-    return [defaultLanguage];
-  }
-
-  return navigator.languages;
-};
 
 export const usePreferredLanguage = (
   opts: UsePreferredLanguageOptions = {},
@@ -20,7 +12,7 @@ export const usePreferredLanguage = (
   useEventListener(
     "languagechange",
     () => {
-      setLanguages(getPreferredLanguages(opts.defaultLanguage) as string[]);
+      setLanguages(navigator.languages as string[]);
     },
     {
       eventTarget: window,
@@ -30,9 +22,10 @@ export const usePreferredLanguage = (
   );
 
   const preferredLanguage = languages[0] || opts.defaultLanguage || "en-US";
+  const locale = useMemo(() => new Intl.Locale(preferredLanguage).maximize(), [preferredLanguage]);
 
   return useFrozen({
-    preferredLanguage,
+    preferredLanguage: `${locale.language}-${locale.region}`,
     fallbackLanguages: languages,
   });
 };
