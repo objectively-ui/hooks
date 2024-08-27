@@ -58,6 +58,10 @@
       "import": "./dist/es/useGeolocation.mjs",
       "types": "./dist/es/useGeolocation.d.ts"
     },
+    "./useImmediateRerender": {
+      "import": "./dist/es/useImmediateRerender.mjs",
+      "types": "./dist/es/useImmediateRerender.d.ts"
+    },
     "./useInterval": {
       "import": "./dist/es/useInterval.mjs",
       "types": "./dist/es/useInterval.d.ts"
@@ -69,6 +73,10 @@
     "./useIsomorphicLayoutEffect": {
       "import": "./dist/es/useIsomorphicLayoutEffect.mjs",
       "types": "./dist/es/useIsomorphicLayoutEffect.d.ts"
+    },
+    "./useMediaQuery": {
+      "import": "./dist/es/useMediaQuery.mjs",
+      "types": "./dist/es/useMediaQuery.d.ts"
     },
     "./usePageVisibility": {
       "import": "./dist/es/usePageVisibility.mjs",
@@ -109,6 +117,10 @@
     "./useTranslate": {
       "import": "./dist/es/useTranslate.mjs",
       "types": "./dist/es/useTranslate.d.ts"
+    },
+    "./useUnmount": {
+      "import": "./dist/es/useUnmount.mjs",
+      "types": "./dist/es/useUnmount.d.ts"
     },
     "./useViewport": {
       "import": "./dist/es/useViewport.mjs",
