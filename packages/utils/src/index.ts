@@ -17,3 +17,4 @@ export {
   type AtomPersistence,
 } from "./atom";
 export * from "./unwrapObjectGetters";
+export * from "./uuid";

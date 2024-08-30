@@ -46,6 +46,10 @@
       "import": "./dist/es/useDeviceOrientation.mjs",
       "types": "./dist/es/useDeviceOrientation.d.ts"
     },
+    "./useDropzone": {
+      "import": "./dist/es/useDropzone.mjs",
+      "types": "./dist/es/useDropzone.d.ts"
+    },
     "./useEventListener": {
       "import": "./dist/es/useEventListener.mjs",
       "types": "./dist/es/useEventListener.d.ts"

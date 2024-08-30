@@ -65,6 +65,10 @@
     "./unwrapObjectGetters": {
       "import": "./dist/es/unwrapObjectGetters.mjs",
       "types": "./dist/es/unwrapObjectGetters.d.ts"
+    },
+    "./uuid": {
+      "import": "./dist/es/uuid.mjs",
+      "types": "./dist/es/uuid.d.ts"
     }
   },
   "scripts": {
