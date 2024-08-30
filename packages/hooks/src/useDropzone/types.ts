@@ -1,4 +1,4 @@
-import type { MutableRefObject } from "react";
+import type { RefCallback } from "react";
 
 export interface IDropzoneFile {
   id: string;
@@ -18,8 +18,7 @@ export interface UseDropzoneOptions {
 }
 
 export interface UseDropzoneReturn {
-  inputRef: MutableRefObject<HTMLInputElement | undefined>;
-  dropzoneRef: MutableRefObject<HTMLDivElement | undefined>;
+  dropzoneRef: RefCallback<HTMLButtonElement>;
   dragging: boolean;
   files: IDropzoneFile[];
   removeFile: (id: string) => void;

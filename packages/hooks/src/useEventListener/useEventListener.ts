@@ -1,6 +1,6 @@
 import type { UnknownFunction } from "@objectively/utils";
-import { useEffect } from "react";
 import { useCallbackRef } from "../useCallbackRef";
+import { useIsomorphicLayoutEffect } from "../useIsomorphicLayoutEffect";
 import type { UseEventOptions } from "./types";
 
 type ListenableTarget =
@@ -80,7 +80,7 @@ export const useEventListener = <
   const element = opts.eventTarget;
   const { capture, once, passive, signal, immediate } = opts;
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const handleChange = handlerRef.current;
 
     // @ts-ignore

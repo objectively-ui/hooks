@@ -4,6 +4,7 @@ export * from "./useBrowserStorageState";
 export * from "./useCallbackRef";
 export * from "./useColorScheme";
 export * from "./useDebounce";
+export * from "./useDropzone";
 export * from "./useDebounceValue";
 export * from "./useDeviceMotion";
 export * from "./useDeviceOrientation";
