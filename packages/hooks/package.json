@@ -126,6 +126,10 @@
       "import": "./dist/es/useUnmount.mjs",
       "types": "./dist/es/useUnmount.d.ts"
     },
+    "./useUploadFiles": {
+      "import": "./dist/es/useUploadFiles.mjs",
+      "types": "./dist/es/useUploadFiles.d.ts"
+    },
     "./useViewport": {
       "import": "./dist/es/useViewport.mjs",
       "types": "./dist/es/useViewport.d.ts"
