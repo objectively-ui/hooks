@@ -2,9 +2,7 @@
   "name": "@objectively/hooks",
   "version": "0.1.0",
   "private": false,
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "exports": {
     ".": {
       "import": "./dist/es/index.mjs",
