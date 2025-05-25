@@ -84,6 +84,6 @@
     "typescript": "^5.3.3",
     "@objectively/typescript-config": "workspace:*",
     "@objectively/bunchee-scripts": "workspace:*",
-    "vitest": "^2.0.4"
+    "vitest": "^2.1.9"
   }
 }
