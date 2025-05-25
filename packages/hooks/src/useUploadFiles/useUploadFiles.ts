@@ -95,16 +95,33 @@ export const useUploadFiles = <TChunked extends boolean>(
   );
 
   useEffect(() => {
-    const uploadStates = new WeakSet(Array.from(uploadState.values()).map((f) => f.file));
+    const fileFiles = files.map((f) => f.file);
+    const fileSet = new WeakSet(fileFiles);
+    const uploadStateFiles = Array.from(uploadState.values());
+    const uploadStateFileSet = new WeakSet(uploadStateFiles.map((f) => f.file));
+
+    if (uploadStateFiles.length > 0) {
+      for (const file of uploadStateFiles) {
+        if (!fileSet.has(file.file)) {
+          // no longer in the input file list, remove
+          cancelUpload(file.id);
+          setUploadState((currentMap) => {
+            const copyMap = new Map(currentMap);
+            copyMap.delete(file.id);
+            return copyMap;
+          });
+        }
+      }
+    }
 
     if (files.length > 0) {
       const newFiles: UploadingFile[] = [];
 
-      for (const file of files) {
-        if (!uploadStates.has(file.file)) {
+      for (const file of fileFiles) {
+        if (!uploadStateFileSet.has(file)) {
           newFiles.push({
             id: randomUUID(),
-            file: file.file,
+            file: file,
             progress: 0,
             status: "pending",
           });
